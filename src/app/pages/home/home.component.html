@@ -1,0 +1,31 @@
+  <!-- hero section -->
+<app-header></app-header>
+
+<!-- features -->
+<app-features></app-features>
+
+<!-- slider -->
+<!-- <app-slider></app-slider> -->
+
+<!-- big text -->
+<!-- <app-big-text text="Testimonials"></app-big-text> -->
+
+<!-- product options -->
+<!-- <app-product-options></app-product-options> -->
+
+<!-- testimonials -->
+<app-testimonials></app-testimonials>
+
+<!-- featured blog -->
+<app-featured-blog [article]="lastArticle"></app-featured-blog>
+
+<!-- blog -->
+<app-blog-list [articles]="articles"></app-blog-list>
+
+<div *ngIf="loading" class="spinner-content">
+  <div class="spinner"></div>
+</div>
+
+<!-- subscribe -->
+<!-- <app-subscribe></app-subscribe> -->
+

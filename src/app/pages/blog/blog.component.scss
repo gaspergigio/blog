@@ -1,0 +1,26 @@
+.search-header{
+    padding-left: 10rem;
+    padding-right: 10rem;
+    display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: stretch;
+	align-content: space-around;
+}
+
+small{
+    color: #5A4FCF !important;
+    margin-left: 1rem;
+    margin-top: 2rem;
+}
+
+h2{
+    margin-top: 1rem;
+}
+
+.scrollContent {
+    overflow: auto;
+    height: 70rem;
+}
+

@@ -1,0 +1,38 @@
+/*
+*
+* ==========================================
+* CUSTOM UTIL CLASSES
+* ==========================================
+*
+*/
+.bg-cover {
+    background-size: cover !important;
+}
+
+
+
+/*
+*
+* ==========================================
+* FOR DEMO PURPOSES
+* ==========================================
+*
+*/
+
+body {
+    min-height: 100vh;
+}
+
+.technology{
+    -webkit-filter: drop-shadow(5px 5px 5px #222 );
+    filter: drop-shadow(5px 5px 5px #222);
+}
+
+.thumb{
+    height: 10rem;
+    border-color: gray;
+    border-width: thin;
+    border-style: solid;
+}
+
+

@@ -1,0 +1,23 @@
+<div *ngIf="article" style="background: url('./../../../assets/images/banner-g5344e6909_1920.jpg')" class="jumbotron bg-cover text-white">
+    <div class="container py-5 text-center header">
+        <div class="flex justify-center items-center bg-indigo-lightest-10 w-l5 h-l5 br-round mb-5">
+        
+            <img class="technology img-responsive" src="./../../../assets/images/logo__angular--white.png" alt="Angular">
+            
+        </div>
+        <h1 class="display-4 font-weight-bold" [innerText]="article.title"></h1>
+        <p class="font-italic mb-0" [innerText]="article.subtitle"></p>
+        <p *ngIf="article.author" class="font-italic">by
+            <a fragment="footer">
+                <u [innerText]="article.author"></u>
+            </a>
+        </p>
+        <img [src]="article.image" class="img-thumbnail thumb" [alt]="article.title">
+    </div>
+</div>
+
+<div class="container article" [innerHtml]="content">
+       
+</div>
+<app-cheat-sheet></app-cheat-sheet>    
+

@@ -1,0 +1,29 @@
+<section id="home" class="min-h-100vh flex justify-start items-center">
+    <div class="mx-5 md-mx-l5">
+        <div class="inline-block br-round bg-indigo-30 indigo-lightest p-2 fs-s2 mb-5">
+            <div class="inline-block bg-indigo indigo-lightest br-round px-3 py-1 mr-3 fs-s3">About Me</div>
+            Hello
+        </div>
+        <div class="header-container">
+            <div class="header-container-image">
+                <img src="./../../../assets/images/1ce69c0a0943e3f42692a64a5e871184be49d9ebce39541eb378700b3f6e2950.0-removebg-preview.png" alt="Logo">
+            </div>
+
+            <div class="header-container-desc">
+                <h1 class="white fs-l3 lh-2 md-fs-xl1 md-lh-1 fw-900 ">I'm Alejandro <br> Arribillaga</h1>
+                <h2 class="white fs-l3 lh-2 md-lh-1">Javascript Developer</h2>
+                <div class="white fs-s3 mt-3 indigo">Software Engineer
+                </div>
+                <p class="mt-3">Experienced Software Developer adept in bringing forth expertise in design, programming, installation, testing and maintenance of software systems. Equipped with a diverse and innovative skill-set. Proficient in various platforms, languages, and embedded systems. Experienced with the latest cutting edge development tools and procedures. Able to effectively self-manage during independent projects, as well as collaborate as part of a productive team.</p>
+                <div class="br-8 mt-10 inline-flex">
+                    <input *ngIf="displaySubscribe" type="text" class="input-lg half bw-0 fw-200 bg-indigo-lightest-10 white ph-indigo-lightest focus-white opacity-80 fs-s3 py-5 min-w-25vw br-r-0" placeholder="Email Address">
+                    <button *ngIf="displaySubscribe" class="button-lg bg-indigo-lightest-20 indigo-lightest focus-white fw-300 fs-s3 mr-0 br-l-0 mr-5">Subscribe</button>
+                    <a href="../../../assets/docs/CV 2021.pdf" target="__blank" class="button-lg bg-indigo white fs-s3 br-4 black fw-600 no-underline">Download CV</a>
+                </div>
+                <div *ngIf="displaySubscribe" class="white opacity-20 fs-s3 mt-3">No credit card required
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</section>

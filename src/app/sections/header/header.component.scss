@@ -1,0 +1,23 @@
+p {
+    color: white;
+    width: 50%;
+}
+
+.header-container {
+    display: flex; 
+    flex-direction: row; 
+    justify-content: flex-start;
+    .header-container-image{
+        width: 50%;
+        img{
+            max-width: 200% !important;
+        }
+    }
+    .header-container-desc{
+        margin-left: 20px; 
+        padding-left: 100px; 
+        border-left-color: white; 
+        border-left-width: medium; 
+        border-left-style: solid;
+    }
+}
