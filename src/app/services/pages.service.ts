@@ -22,7 +22,7 @@ export class PagesService {
   }
 
   getPosts(pageNumber: number = 1, pageSize: number = environment.pageSize){
-    //TODO: blog 010: Permitir filtro por tecnologia.
+    //TODO: blog 010 (Medium): Permitir filtro por tecnologia.
     const offset = pageSize * (pageNumber - 1);
     let end: number | undefined;
     if (pageSize > 0)

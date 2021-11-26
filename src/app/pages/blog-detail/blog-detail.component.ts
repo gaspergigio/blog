@@ -23,7 +23,7 @@ export class BlogDetailComponent implements OnInit, OnDestroy, AfterViewInit {
       this.subscription = this.pagesService.getPostById(id).subscribe(({article, html}) => {
         this.article = article;
         this.content = html;
-        //TODO: blog-004: Cambiar icono de Tecnología segun la tecnologia que traiga el articulo.
+        //TODO: blog-004 (High): Cambiar icono de Tecnología segun la tecnologia que traiga el articulo.
       })
     });
   }

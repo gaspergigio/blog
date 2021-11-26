@@ -19,10 +19,10 @@ export class AppComponent{
     translate.use(browserLang);
   }
 
-  //TODO: blog-001: Corregir Responsive
-  //TODO: blog-003: Implementar Angular Universal
-  //TODO: blog-012: Dar soporte a articulos en diferentes idiomas.
-  //TODO: blog-013: Agregar Google analytics
+  //TODO: blog-001 (High): Corregir Responsive
+  //TODO: blog-003 (High): Implementar Angular Universal
+  //TODO: blog-012 (Medium): Dar soporte a articulos en diferentes idiomas.
+  //TODO: blog-013 (Low): Agregar Google analytics
 
 }
 
