@@ -18,10 +18,11 @@ import { FeaturedBlogComponent } from './sections/featured-blog/featured-blog.co
 import { BlogListComponent } from './sections/blog-list/blog-list.component';
 import { BlogItemComponent } from './sections/blog-item/blog-item.component';
 import { SubscribeComponent } from './sections/subscribe/subscribe.component';
-import { VimeModule } from '@vime/angular';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CheatSheetComponent } from './sections/cheat-sheet/cheat-sheet.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 @NgModule({
   declarations: [
@@ -47,10 +48,20 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    VimeModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

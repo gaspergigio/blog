@@ -1,22 +1,22 @@
 <nav class="w-100pc flex flex-column md-flex-row md-px-10 py-5 bg-black">
     <div class="flex justify-between">
-        <a href="#" class="flex items-center p-2 mr-4 no-underline">
+        <div class="flex items-center p-2 mr-4 no-underline">
             <a href="https://www.linkedin.com/in/alejandroarribillaga/" target="__blank">
                 <img class="max-h-l2 w-auto" src="assets/images/734383_in_linked_media_online_social_icon.png" />
             </a>
             <a href="https://github.com/gaspergigio" target="__blank">
                 <img class="max-h-l2 w-auto ml-3" src="assets/images/1221583_github_logo_media_social_icon.png" />
             </a>
-            <a class="fs-s1 mx-3 py-3 white language no-underline hover-underline" (click)="toogleLanguage()">EN</a>
-        </a>
+            <span class="fs-s1 mx-3 py-3 white language no-underline hover-underline" (click)="toogleLanguage()">{{ lang | uppercase }}</span>
+        </div>
         <a data-toggle="toggle-nav" data-target="#nav-items" href="#" class="flex items-center ml-auto md-hidden indigo-lighter opacity-50 hover-opacity-100 ease-300 p-1 m-3">
             <i data-feather="menu"></i>
         </a>
     </div>
     <div id="nav-items" class="hidden flex sm-w-100pc flex-column md-flex md-flex-row md-justify-end items-center">
         <a routerLink="/" class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">Home</a>
-        <a routerLink="/" fragment="features" class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">Technologies</a>
-        <a routerLink="/" fragment="testimonials" class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">Testimonials</a>
+        <a routerLink="/" fragment="features" class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">{{'navbar.menu.technologies' | translate}}</a>
+        <a routerLink="/" fragment="testimonials" class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">{{'navbar.menu.testimonials' | translate}}</a>
         <a routerLink="/blog"  class="fs-s1 mx-3 py-3 indigo no-underline hover-underline">Blog</a>
     </div>
 </nav>
