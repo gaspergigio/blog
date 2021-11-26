@@ -1,6 +1,6 @@
 <section id="features" class="p-10 md-p-l5">
     <div class="md-w-75pc" style="padding-left: 3rem;">
-        <h2 class="white fs-l3 fw-900 lh-1">What technologies do I work with?</h2>
+        <h2 class="white fs-l3 fw-900 lh-1">{{'features.title' | translate}}</h2>
     </div>
    <div class="relative bg-indigo-lightest-10 mt-10">
         <div id="slider-1">
@@ -26,8 +26,8 @@
                     <img src="./../../../assets/images/logo__angular--white.png" alt="Angular">
                 </div>
                 <h4 class="white fw-600 fs-m3 mb-5">Angular</h4>
-                <div class="indigo-lightest fw-600 fs-m1 lh-3 opacity-60">I have some years of experience in this Google Framework and I currently use it on a daily basis in my current job. Among its features we can say that it is complete, structured, uses Typescript by default, allows bi-directional bindings, you can develop apps with <strong>Ionic</strong>, etc.</div>
-                <a *ngIf="getDisplay('angular')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">Read More</a>
+                <div class="indigo-lightest fw-600 fs-m1 lh-3 opacity-60" [innerHTML]="'features.card1.desc' | translate"></div>
+                <a *ngIf="getDisplay('angular')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">{{'features.card1.btn.label' | translate}}</a>
             </div>
         </div>
         <div class="w-100pc md-w-40pc">
@@ -36,8 +36,8 @@
                     <img src="./../../../assets/images/dev_node_icon_160853.png" alt="Nodejs" class="invert-image">
                 </div>
                 <h4 class="white fw-600 fs-m3 mb-5">Nodejs</h4>
-                <div class="indigo-lightest fw-600 fs-m1 opacity-60">I have used Node in some freelance projects. Used both for the creation of Apis and console apps, the biggest advantage I see is that... it's programmed in Javascript. Previously I developed my backends with <strong>.Net Core</strong>.</div>
-                <a *ngIf="getDisplay('node')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">Read More</a>
+                <div class="indigo-lightest fw-600 fs-m1 opacity-60" [innerHTML]="'features.card2.desc' | translate"></div>
+                <a *ngIf="getDisplay('node')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">{{'features.card2.btn.label' | translate}}</a>
             </div>
         </div>
         <div class="w-100pc md-w-40pc">
@@ -46,8 +46,8 @@
                     <img src="./../../../assets/images/4691292_react native_react_icon-modified.png" alt="React">
                 </div>
                 <h4 class="white fw-600 fs-m3 mb-5">React</h4>
-                <div class="indigo-lightest fw-600 fs-m1 opacity-60">I have used this Facebook library in some freelance projects and occasionally in my current job. About its features, I can highlight that it uses JS + JSX, Virtual DOM, one-way binding and is very lightweight, you can develop apps with <strong>React Native</strong>, etc.</div>
-                <a *ngIf="getDisplay('react')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">Read More</a>
+                <div class="indigo-lightest fw-600 fs-m1 opacity-60" [innerHTML]="'features.card3.desc' | translate"></div>
+                <a *ngIf="getDisplay('react')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">{{'features.card3.btn.label' | translate}}</a>
             </div>
         </div>
 
@@ -62,8 +62,8 @@
                     <img class="bg-white" src="./../../../assets/images/typescript_icon_131914.png" alt="Typescript">
                 </div>
                 <h4 class="white fw-600 fs-m3 mb-5">Typescript</h4>
-                <div class="indigo-lightest fw-600 fs-m1 lh-3 opacity-60">Both Typescript and Javascript are part of my daily routine. Superset of JavaScript. Class and Module Support. Static Type-checking, etc</div>
-                <a *ngIf="getDisplay('angular')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">Read More</a>
+                <div class="indigo-lightest fw-600 fs-m1 lh-3 opacity-60" [innerHTML]="'features.card4.desc' | translate"></div>
+                <a *ngIf="getDisplay('angular')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">{{'features.card4.btn.label' | translate}}</a>
             </div>
         </div>
         <div class="w-100pc md-w-40pc">
@@ -72,8 +72,8 @@
                     <img class="invert-image" src="./../../../assets/images/redux_icon_132038.png" alt="Redux" >
                 </div>
                 <h4 class="white fw-600 fs-m3 mb-5">Redux</h4>
-                <div class="indigo-lightest fw-600 fs-m1 opacity-60">The source of truth. I have implemented and used Redux in both Angular and React. Free to use tool that allows us to store all our state in one place.</div>
-                <a *ngIf="getDisplay('node')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">Read More</a>
+                <div class="indigo-lightest fw-600 fs-m1 opacity-60" [innerHTML]="'features.card5.desc' | translate"></div>
+                <a *ngIf="getDisplay('node')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">{{'features.card5.btn.label' | translate}}</a>
             </div>
         </div>
         <div class="w-100pc md-w-40pc">
@@ -82,11 +82,11 @@
                     <img class="invert-image image-space" src="./../../../assets/images/_rxjs-removebg-preview.png" alt="Rxjs">
                 </div>
                 <h4 class="white fw-600 fs-m3 mb-5">ReactiveX</h4>
-                <div class="indigo-lightest fw-600 fs-m1 opacity-60">Reactive programming is used in all web development today. As their site says: An API for asynchronous programming with observable streams. The Observer pattern done right</div>
-                <a *ngIf="getDisplay('react')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">Read More</a>
+                <div class="indigo-lightest fw-600 fs-m1 opacity-60" [innerHTML]="'features.card6.desc' | translate"></div>
+                <a *ngIf="getDisplay('react')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300">{{'features.card6.btn.label' | translate}}</a>
             </div>
         </div>
 
     </div>
 </ng-template>
-<!--TODO: Agregarlos:  Tensorflow, Cloud, React Native quedan para segunda etapa.-->
+<!--TODO: blog: 006 (Low): Agregarlos:  Tensorflow, Cloud, React Native quedan para segunda etapa.-->

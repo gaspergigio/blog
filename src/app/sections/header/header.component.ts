@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  displaySubscribe: boolean = false; //TODO: quitar esto cuando se haga la subscripcion
+  displaySubscribe: boolean = false; //TODO: blog 009 (Low): quitar esto cuando se haga la subscripcion
   constructor() { }
 
   ngOnInit(): void {
