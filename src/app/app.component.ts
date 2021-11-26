@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-//TODO: Last Blog ticket added --> 011.
+//TODO: Last Blog ticket added --> 013.
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,7 +20,6 @@ export class AppComponent{
   }
 
   //TODO: blog-001: Corregir Responsive
-  //TODO: blog-002: Permitir idioma Ingles y Español: https://www.positronx.io/angular-internationalization-i18n-with-ngx-translate-tutorial/
   //TODO: blog-003: Implementar Angular Universal
   //TODO: blog-012: Dar soporte a articulos en diferentes idiomas.
   //TODO: blog-013: Agregar Google analytics
