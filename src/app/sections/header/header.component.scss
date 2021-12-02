@@ -1,6 +1,10 @@
+@import "./../../../theme/variables.scss";
 p {
     color: white;
     width: 50%;
+    @media (max-width: $breakpoint-mobile) {
+        width: 100%;
+    }
 }
 
 .header-container {
@@ -12,6 +16,9 @@ p {
         img{
             max-width: 200% !important;
         }
+        @media (max-width: $breakpoint-mobile) {
+            display: none;
+        }
     }
     .header-container-desc{
         margin-left: 20px; 
@@ -19,5 +26,11 @@ p {
         border-left-color: white; 
         border-left-width: medium; 
         border-left-style: solid;
+        @media (max-width: $breakpoint-mobile) {
+            border-left-style: none;
+            padding-left: 0rem; 
+        }
+
     }
+
 }

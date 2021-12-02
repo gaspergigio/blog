@@ -1,6 +1,19 @@
+@import "./../../../theme/variables.scss";
 .blog-list{
     padding-left: 6rem;
     padding-right: 6rem;
+    @media (max-width: $breakpoint-desktop ) and (min-width: $breakpoint-mobile) {
+        padding-left: 3rem;
+        padding-right: 3rem;
+        .p-10{
+            padding: 0rem !important;
+        }
+    }
+    @media (max-width: $breakpoint-mobile) {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
     padding-top: 1rem;
     padding-bottom: 2rem;
 }
+

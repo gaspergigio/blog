@@ -2,11 +2,94 @@
     <div class="md-w-75pc" style="padding-left: 3rem;">
         <h2 class="white fs-l3 fw-900 lh-1">{{'features.title' | translate}}</h2>
     </div>
+   <div *ngIf="isMobile" class="relative bg-indigo-lightest-10 mt-10">
+        <div  id="slider-1">
+            <div  class="flex flex-column md-flex-row mx-auto slide-class" *ngFor="let itemCarousel of carouselMobile">
+                <ng-container *ngIf="itemCarousel">
+                
+                    <div class="w-100pc md-w-40pc" *ngFor="let item of itemCarousel">
+                        <div class="br-8 p-5 m-5">
+                            <div class="flex justify-center items-center bg-indigo-lightest-10 white w-l5 h-l5 br-round mb-5">
+                                <img [class]="item.imgClass" [src]="'./../../../assets/images/' + item.logo" [alt]="item.technology">
+                            </div>
+                            <h4 class="white fw-600 fs-m3 mb-5" [innerText]="item.technology"></h4>
+                            <div class="indigo-lightest fw-600 fs-m1 lh-3 opacity-60" [innerHTML]="item.desc | translate"></div>
+                            <a *ngIf="getDisplay('angular')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300" [innerText]="item.btnLabel | translate"></a>
+                        </div>
+                    </div>
+                </ng-container>
+
+            </div>
+        </div>
+        <ul class="absolute list-none w-100pc flex justify-between top-50pc">
+            <li><button class="prev ml-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2 focus-indigo-lighter outline-none"><i
+                        data-feather="chevron-left"></i></button></li>
+            <li><button class="next mr-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2  focus-indigo-lighter outline-none"><i
+                        data-feather="chevron-right"></i></button></li>
+        </ul>
+   </div>
+   <div *ngIf="isTablet" class="relative bg-indigo-lightest-10 mt-10">
+    <div  id="slider-1">
+        <div  class="flex flex-column md-flex-row mx-auto slide-class" *ngFor="let itemCarousel of carouselTablet">
+            <ng-container *ngIf="itemCarousel">
+            
+                <div class="w-100pc md-w-40pc" *ngFor="let item of itemCarousel">
+                    <div class="br-8 p-5 m-5">
+                        <div class="flex justify-center items-center bg-indigo-lightest-10 white w-l5 h-l5 br-round mb-5">
+                            <img [class]="item.imgClass" [src]="'./../../../assets/images/' + item.logo" [alt]="item.technology">
+                        </div>
+                        <h4 class="white fw-600 fs-m3 mb-5" [innerText]="item.technology"></h4>
+                        <div class="indigo-lightest fw-600 fs-m1 lh-3 opacity-60" [innerHTML]="item.desc | translate"></div>
+                        <a *ngIf="getDisplay('angular')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300" [innerText]="item.btnLabel | translate"></a>
+                    </div>
+                </div>
+            </ng-container>
+
+        </div>
+    </div>
+    <ul class="absolute list-none w-100pc flex justify-between top-50pc">
+        <li><button class="prev ml-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2 focus-indigo-lighter outline-none"><i
+                    data-feather="chevron-left"></i></button></li>
+        <li><button class="next mr-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2  focus-indigo-lighter outline-none"><i
+                    data-feather="chevron-right"></i></button></li>
+    </ul>
+</div>
+<div *ngIf="isDesktop" class="relative bg-indigo-lightest-10 mt-10">
+    <div  id="slider-1">
+        <div  class="flex flex-column md-flex-row mx-auto slide-class" *ngFor="let itemCarousel of carouselDesktop">
+            <ng-container *ngIf="itemCarousel">
+            
+                <div class="w-100pc md-w-40pc" *ngFor="let item of itemCarousel">
+                    <div class="br-8 p-5 m-5">
+                        <div class="flex justify-center items-center bg-indigo-lightest-10 white w-l5 h-l5 br-round mb-5">
+                            <img [class]="item.imgClass" [src]="'./../../../assets/images/' + item.logo" [alt]="item.technology">
+                        </div>
+                        <h4 class="white fw-600 fs-m3 mb-5" [innerText]="item.technology"></h4>
+                        <div class="indigo-lightest fw-600 fs-m1 lh-3 opacity-60" [innerHTML]="item.desc | translate"></div>
+                        <a *ngIf="getDisplay('angular')" href="#" class="mt-5 button bg-indigo-lightest-10 fs-s3 white no-underline hover-opacity-100 hover-scale-up-1 ease-300" [innerText]="item.btnLabel | translate"></a>
+                    </div>
+                </div>
+            </ng-container>
+
+        </div>
+    </div>
+    <ul class="absolute list-none w-100pc flex justify-between top-50pc">
+        <li><button class="prev ml-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2 focus-indigo-lighter outline-none"><i
+                    data-feather="chevron-left"></i></button></li>
+        <li><button class="next mr-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2  focus-indigo-lighter outline-none"><i
+                    data-feather="chevron-right"></i></button></li>
+    </ul>
+</div>
+</section>
+
+<!-- <section id="features" class="p-10 md-p-l5">
+    <div class="md-w-75pc" style="padding-left: 3rem;">
+        <h2 class="white fs-l3 fw-900 lh-1">{{'features.title' | translate}}</h2>
+    </div>
    <div class="relative bg-indigo-lightest-10 mt-10">
         <div id="slider-1">
             <ng-container *ngTemplateOutlet="slide1"></ng-container> 
             <ng-container *ngTemplateOutlet="slide2"></ng-container> 
-<!--             <ng-container *ngTemplateOutlet="slide1"></ng-container>  -->
         </div>
         <ul class="absolute list-none w-100pc flex justify-between top-50pc">
             <li><button class="prev ml-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2 focus-indigo-lighter outline-none"><i
@@ -88,5 +171,5 @@
         </div>
 
     </div>
-</ng-template>
+</ng-template> -->
 <!--TODO: blog: 006 (Low): Agregarlos:  Tensorflow, Cloud, React Native quedan para segunda etapa.-->

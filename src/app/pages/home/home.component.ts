@@ -10,7 +10,7 @@ declare function executeHomeAnimations(): any;
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   lastArticle!: Article;
   articles: Article[] = [];
   loading = true;
