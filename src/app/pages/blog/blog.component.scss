@@ -1,12 +1,31 @@
+@import "./../../../theme/variables.scss";
 .search-header{
     padding-left: 10rem;
     padding-right: 10rem;
     display: flex;
 	flex-direction: row;
-	flex-wrap: nowrap;
+    flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: stretch;
 	align-content: space-around;
+    @media (max-width: $breakpoint-desktop ) and (min-width: $breakpoint-mobile) {
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+    @media (max-width: $breakpoint-mobile) {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        .btn-search{
+            display: none;
+        }
+        .button-lg{
+            padding: 0rem 1rem;
+        }
+    }
+    .icon {
+        color: white;
+        margin-right: 0.3rem;
+    }
 }
 
 small{

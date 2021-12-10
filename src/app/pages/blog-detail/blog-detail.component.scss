@@ -1,3 +1,4 @@
+@import "./../../../theme/variables.scss";
 /*
 *
 * ==========================================
@@ -33,6 +34,12 @@ body {
     border-color: gray;
     border-width: thin;
     border-style: solid;
+}
+
+.article{
+    @media (max-width: $breakpoint-mobile) {
+        padding: 0rem 2.5rem;
+    } 
 }
 
 
