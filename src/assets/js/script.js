@@ -1,3 +1,16 @@
+function executeFeaturedAnimations(){
+
+    // feather icons
+    feather.replace();
+
+    $('#slider-1').slick({
+        infinite: true,
+        prevArrow: $('.prev'),
+        nextArrow: $('.next'),
+    });
+
+}
+
 function executeHomeAnimations() {
     // toggle mobile menu
     $('[data-toggle="toggle-nav"]').on('click', function () {
@@ -11,7 +24,6 @@ function executeHomeAnimations() {
     // smooth scroll
     var scroll = new SmoothScroll('a[href*="#"]');
 
-    // tiny slider
     $('#slider-1').slick({
         infinite: true,
         prevArrow: $('.prev'),
@@ -31,7 +43,7 @@ function executeHomeAnimations() {
             return '<div class="bg-white br-round w-1 h-1 opacity-50 mt-5" id=' + i + '> </div>'
         },
         responsive: [{
-            breakpoint: 768,
+            breakpoint: 992,
             settings: {
                 slidesToShow: 1
             }

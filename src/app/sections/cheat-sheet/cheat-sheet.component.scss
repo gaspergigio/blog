@@ -1,3 +1,10 @@
+@import "./../../../theme/variables.scss";
 h2{
     color:white;
+}
+
+.cheatsheet{
+    @media (max-width: $breakpoint-mobile) {
+        padding: 0rem 2.5rem;
+    } 
 }
