@@ -4,7 +4,7 @@
     "title": "Bootstrap static header",
     "subtitle": "Using simple jumbotron-style component, create a nice Bootstrap 4 header with a background image.",
     "author": "Alejandro Arribillaga",
-    "categories": ["angular"],
+    "categories": ["node"],
     "post": "test.html",
     "image": "./../../../assets/images/andrew-neel-_71nlAn-2YA-unsplash.jpg",
     "active": true,

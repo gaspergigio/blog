@@ -42,4 +42,13 @@ body {
     } 
 }
 
+.invert-image{
+    -webkit-filter: invert(1);
+    filter: invert(1);
+}
+
+.image-space{
+    padding: 1rem;
+}
+
 

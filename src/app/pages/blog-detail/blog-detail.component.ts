@@ -14,6 +14,9 @@ declare function executeHomeAnimations(): any;
 export class BlogDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   content: string = '';
   article: Article | undefined
+  technology: string | undefined = '';
+  techLogo: string = '';
+  techClass: string = '';
   subscription: Subscription | undefined; 
   constructor(private pagesService: PagesService, private route: ActivatedRoute) { }
 
@@ -22,8 +25,37 @@ export class BlogDetailComponent implements OnInit, OnDestroy, AfterViewInit {
       const id = params['id'];
       this.subscription = this.pagesService.getPostById(id).subscribe(({article, html}) => {
         this.article = article;
+        this.technology = article?.categories[0];
+        if (this.technology){
+          switch (this.technology) {
+            case 'angular':
+              this.techLogo = 'logo__angular--white.png';
+              break;
+            case 'react':
+              this.techLogo = '4691292_react native_react_icon-modified.png';
+              break;
+            case 'node':
+              this.techLogo = 'dev_node_icon_160853.png';
+              this.techClass = 'invert-image';
+              break; 
+            case 'typescript':
+              this.techLogo = 'typescript_icon_131914.png';
+              this.techClass = 'bg-white';
+              break; 
+            case 'redux':
+              this.techLogo = 'redux_icon_132038.png';
+              this.techClass = 'invert-image';
+              break;  
+            case 'rxjs':
+              this.techLogo = '_rxjs-removebg-preview.png';
+              this.techClass = 'invert-image image-space';
+              break;              
+            default:
+              break;
+          }
+        }
+
         this.content = html;
-        //TODO: blog-004 (High): Cambiar icono de Tecnología segun la tecnologia que traiga el articulo.
       })
     });
   }
