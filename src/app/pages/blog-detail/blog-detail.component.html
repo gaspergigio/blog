@@ -2,7 +2,8 @@
     <div class="container py-5 text-center header">
         <div class="flex justify-center items-center bg-indigo-lightest-10 w-l5 h-l5 br-round mb-5">
         
-            <img class="technology img-responsive" src="./../../../assets/images/logo__angular--white.png" alt="Angular">
+<!--             <img class="technology img-responsive" src="./../../../assets/images/logo__angular--white.png" alt="Angular"> -->
+            <img [class]="techClass" [src]="'./../../../assets/images/' + techLogo" [alt]="technology">
             
         </div>
         <h1 class="display-4 font-weight-bold" [innerText]="article.title"></h1>
