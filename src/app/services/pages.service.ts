@@ -4,20 +4,32 @@ import { Article } from '../models/article.model';
 import { filter, map, skip, take, takeLast } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PagesService {
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public translate: TranslateService) { }
+
+  getLang(){
+    const storageLang = localStorage.getItem('lang');
+    let lang = storageLang ?? 'en';
+    if (!lang){
+      const browserLang = this.translate.getBrowserLang();
+      lang = browserLang ?? 'en';
+    }
+    return lang
+  }
 
   getPostById(id: string){
+    const lang = this.getLang();
     return forkJoin({
       article: this.getPosts(1, 0).pipe(
         map(res => res.find(x => x.id === id))
       ), 
-      html: this.http.get('assets/posts/' + id + '.html', { responseType: 'text' })} 
+      html: this.http.get(`assets/posts/${id}.${lang}.html`, { responseType: 'text' })} 
     );
   }
 

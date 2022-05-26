@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { PagesService } from 'src/app/services/pages.service';
 
-//TODO: Last Blog ticket added --> 013.
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,18 +9,15 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent{
   title = 'blog';
-  constructor (public translate: TranslateService){
+  constructor (public translate: TranslateService, public pagesService: PagesService){
     const langs = ['en', 'es'];
     translate.addLangs(langs);
-    let browserLang = this.translate.getBrowserLang();
-    if (!langs.includes(browserLang))
-      browserLang = 'en';
-    translate.setDefaultLang(browserLang);
-    translate.use(browserLang);
+    const lang = pagesService.getLang();
+    translate.setDefaultLang(lang);
+    translate.use(lang);
   }
 
   //TODO: blog-003 (High): Implementar Angular Universal
-  //TODO: blog-012 (Medium): Dar soporte a articulos en diferentes idiomas.
   //TODO: blog-013 (Low): Agregar Google analytics
 
 }

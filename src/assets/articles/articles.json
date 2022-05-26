@@ -1,27 +1,34 @@
 [{
     "id": "1",
     "date":"2021-12-01T08:00:00",
-    "title": "Bootstrap static header",
-    "subtitle": "Using simple jumbotron-style component, create a nice Bootstrap 4 header with a background image.",
+    "title": "Angular Universal - Server Side Rendering (SSR)",
+    "subtitle": "Primeros Pasos (I)",
     "author": "Alejandro Arribillaga",
-    "categories": ["node"],
-    "post": "test.html",
-    "image": "./../../../assets/images/andrew-neel-_71nlAn-2YA-unsplash.jpg",
+    "categories": ["angular"],
+    "post": "1.md.html",
+    "image": "./../../../assets/images/universal_logo.png",
     "active": true,
     "cheatsheets": [{
-        "title": "Structural Directives",
+        "title": "Cheat Sheet",
+        "colums":["Command", "Descripcion"],
         "list": [{
-            "title": "Titulo 1",
-            "desc": "Descripcion 1"
+            "title": "ng new [nombre del proyecto]",
+            "desc": "Iniciar proyecto de Angular"
         }, {
-            "title": "Titulo 2",
-            "desc": "Descripcion 2"
+            "title": "ng serve [nombre del proyecto]",
+            "desc": "Servir la app de Angular"
         }, {
-            "title": "Titulo 3",
-            "desc": "Descripcion 3"
+            "title": "curl localhost:port",
+            "desc": "Muestra lo que verá el motor al visitar nuestra página"
         }, {
-            "title": "Titulo 4",
-            "desc": "Descripcion 4"
+            "title": "ng add @nguniversal/express-engine",
+            "desc": "Instalación de packete Angular Universal"
+        }, {
+            "title": "npm run build:ssr",
+            "desc": "Build en SSR"
+        }, {
+            "title": "npm run serve:ssr",
+            "desc": "Servir la app de Angular en SSR"
         }]
     }]
 }, {
@@ -36,6 +43,7 @@
     "active": true,
     "cheatsheets": [{
         "title": "Structural Directives",
+        "colums":["Command", "Descripcion"],
         "list": [{
             "title": "Titulo 1",
             "desc": "Descripcion 1"
@@ -62,6 +70,7 @@
     "active": true,
     "cheatsheets": [{
         "title": "Structural Directives",
+        "colums":["Command", "Descripcion"],
         "list": [{
             "title": "Titulo 1",
             "desc": "Descripcion 1"
@@ -88,6 +97,7 @@
     "active": true,
     "cheatsheets": [{
         "title": "Structural Directives",
+        "colums":["Command", "Descripcion"],
         "list": [{
             "title": "Titulo 1",
             "desc": "Descripcion 1"
@@ -114,6 +124,7 @@
     "active": true,
     "cheatsheets": [{
         "title": "Structural Directives",
+        "colums":["Command", "Descripcion"],
         "list": [{
             "title": "Titulo 1",
             "desc": "Descripcion 1"
@@ -140,6 +151,7 @@
     "active": true,
     "cheatsheets": [{
         "title": "Structural Directives",
+        "colums":["Command", "Descripcion"],
         "list": [{
             "title": "Titulo 1",
             "desc": "Descripcion 1"
@@ -166,6 +178,7 @@
     "active": true,
     "cheatsheets": [{
         "title": "Structural Directives",
+        "colums":["Command", "Descripcion"],
         "list": [{
             "title": "Titulo 1",
             "desc": "Descripcion 1"
@@ -192,6 +205,7 @@
     "active": true,
     "cheatsheets": [{
         "title": "Structural Directives",
+        "colums":["Command", "Descripcion"],
         "list": [{
             "title": "Titulo 1",
             "desc": "Descripcion 1"

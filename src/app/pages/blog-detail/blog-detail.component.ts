@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PagesService } from '../../services/pages.service';
 import { Article } from '../../models/article.model';
 import { Subscription } from 'rxjs';
+import { MessageService } from '../../services/message.service';
 
 declare function executeHomeAnimations(): any;
 
@@ -13,18 +14,19 @@ declare function executeHomeAnimations(): any;
 })
 export class BlogDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   content: string = '';
-  article: Article | undefined
+  article!: Article;
   technology: string | undefined = '';
   techLogo: string = '';
   techClass: string = '';
   subscription: Subscription | undefined; 
-  constructor(private pagesService: PagesService, private route: ActivatedRoute) { }
+  constructor(private pagesService: PagesService, private route: ActivatedRoute, public messageService: MessageService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       const id = params['id'];
       this.subscription = this.pagesService.getPostById(id).subscribe(({article, html}) => {
-        this.article = article;
+        if (article)
+          this.article = article;
         this.technology = article?.categories[0];
         if (this.technology){
           switch (this.technology) {
@@ -58,6 +60,12 @@ export class BlogDetailComponent implements OnInit, OnDestroy, AfterViewInit {
         this.content = html;
       })
     });
+
+    this.messageService.getMessage().subscribe((msj: any) => {
+      if (msj.type === 'changeLang'){
+        this.ngOnInit();
+      }
+    })
   }
 
   ngOnDestroy(){
@@ -69,3 +77,6 @@ export class BlogDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 }
+
+//TODO: Ver el cheat-sheet component como funciona.
+//TODO: Recortar imagenes Scalio.

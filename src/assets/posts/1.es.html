@@ -1,0 +1,113 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Primeros Pasos (I)</title><style></style></head><body id="preview">
+<h1 class="code-line" data-line-start=0 data-line-end=1><a id="Introduccin_0"></a>Introducción</h1>
+<p class="has-line-data" data-line-start="2" data-line-end="3">Lo primero que debemos saber es que las aplicaciones de Angular se ejecutan en el Cliente, es decir en el navegador del usuario. No se está renderizando en el servidor como lo harían páginas estáticas. Esto trae como consecuencias grandes problemas a la hora del SEO, sobre todo para sitios en donde el Cliente tenga un objetivo de Marketing.</p>
+<p class="has-line-data" data-line-start="4" data-line-end="5">Antes de avanzar vamos a considerar que el lector tiene alguna experiencia en programación en Angular (2 o +), por lo que damos por sentado que tiene instalado Angular CLI y npm.</p>
+<h2 class="code-line" data-line-start=6 data-line-end=7><a id="Inicio_del_Proyecto_de_Angular_6"></a>Inicio del Proyecto de Angular</h2>
+<p class="has-line-data" data-line-start="8" data-line-end="9">Lo primero que debemos hacer es crear un proyecto de angular. Si ya tienes un proyecto, puedes utilizar el que tienes y saltar hasta la siguiente sección.</p>
+<p class="has-line-data" data-line-start="10" data-line-end="11">Simplemente en cualquier carpeta que podría ser una carpeta Project o Angular en nuestro ordenador abriremos una terminal. En la terminal escribiremos:</p>
+<pre><code class="has-line-data" data-line-start="13" data-line-end="15" class="language-sh">ng new [nombre del proyecto]
+</code></pre>
+<p class="has-line-data" data-line-start="15" data-line-end="16">Seleccione las opciones que prefiera de inicio de proyecto de Angular. Esto nos creará la carpeta de nombre <strong>[nombre del proyecto]</strong>, por lo que entraremos a ella y trataremos de correr la aplicación.</p>
+<pre><code class="has-line-data" data-line-start="18" data-line-end="21" class="language-sh"><span class="hljs-built_in">cd</span> [nombre del proyecto]
+ng serve [nombre del proyecto]
+</code></pre>
+<blockquote>
+<p class="has-line-data" data-line-start="22" data-line-end="23">[Nombre del proyecto] debe ser reemplazado por el nombre que decidas para tu app. Para mi ejemplo yo llame testUniversal al proyecto.</p>
+</blockquote>
+<p class="has-line-data" data-line-start="24" data-line-end="25">El proyecto se levantará en <strong>localhost:4200</strong> que es lo usual. Una vez corriendo la aplicación, hagamos lo siguiente. Abre otra terminal y ejecuta:</p>
+<pre><code class="has-line-data" data-line-start="27" data-line-end="29" class="language-sh">curl localhost:<span class="hljs-number">4200</span>
+</code></pre>
+<p class="has-line-data" data-line-start="30" data-line-end="31">Lo que nos va a mostrar el resultado del comando <strong>Curl</strong> es lo que verá el motor de búsqueda cuando vea nuestra página. Como puedes observar el <strong>body</strong> de nuestra aplicación estará casi vacío.</p>
+<h2 class="code-line" data-line-start=32 data-line-end=33><a id="Una_breve_introduccin_a_SEO_32"></a>Una breve introducción a SEO</h2>
+<p class="has-line-data" data-line-start="34" data-line-end="35">Angular funciona como una SPA (single page app), que tiene una carga inicial y que luego va cambiando de ruta mediante el uso de Routing. Los spiders de los buscador no pueden ver el contenido de la aplicación de esta manera. No pueden indexar la applicación de manera correcta.</p>
+<p class="has-line-data" data-line-start="36" data-line-end="37">La indexación de Google es el proceso por el cual google anexa una página a su índice para mostrarla en los resultados de búsqueda. Es decir, google obtiene información de la estructura de la página para crear su índice. Si tu página no se encuentra en el índice de google no podrá ser encontrada en una búsqueda.</p>
+<p class="has-line-data" data-line-start="38" data-line-end="39">Pero tenemos otro problema, que tiene que ver con la información de la página: Para indexar una página google mediante algoritmos va a clasificar la pagina basado en su contenido, imágenes, etc. Como consecuencia, si tu página no tiene información completa para rellenar el indice de google, es dificil que sea encontrada cuando un usuario la busque.</p>
+<p class="has-line-data" data-line-start="40" data-line-end="41">Como vimos cuando ejecutamos el comando Curl, la implementación normal de Angular no ayuda a la indexación de google. Para resolver esto utilizamos Server Side Rendering (SSR o Universal) que renderizará el contenido en el server y servirá la página ya construida al usuario.</p>
+<h2 class="code-line" data-line-start=42 data-line-end=43><a id="Implementando_Angular_Universal_42"></a>Implementando Angular Universal</h2>
+<p class="has-line-data" data-line-start="44" data-line-end="45">Para implementar angular universal, solo debemos seguir su <a href="https://angular.io/guide/universal">link</a> oficial. Lo hagamos nosotros:</p>
+<p class="has-line-data" data-line-start="46" data-line-end="47">Abramos la terminal y ejecutemos:</p>
+<pre><code class="has-line-data" data-line-start="49" data-line-end="51" class="language-sh">ng add @nguniversal/express-engine
+</code></pre>
+<p class="has-line-data" data-line-start="52" data-line-end="53">Como resultado se han creado y editado algunos archivos:</p>
+<table class="table table-striped table-bordered">
+<thead>
+<tr>
+<th>Archivo</th>
+<th>Descripcion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>src/index.html</td>
+<td>app web page</td>
+</tr>
+<tr>
+<td>src/main.ts</td>
+<td>bootstrapper for client app</td>
+</tr>
+<tr>
+<td>src/main.server.ts</td>
+<td>* bootstrapper for server app</td>
+</tr>
+<tr>
+<td>src/style.css</td>
+<td>styles for the app</td>
+</tr>
+<tr>
+<td>src/app/app.server.module.ts</td>
+<td>* server-side application module</td>
+</tr>
+<tr>
+<td>server.ts</td>
+<td>* express web server</td>
+</tr>
+<tr>
+<td>tsconfig.json</td>
+<td>* express web server</td>
+</tr>
+<tr>
+<td>tsconfig.app.json</td>
+<td>TypeScript base configuration]</td>
+</tr>
+<tr>
+<td>tsconfig.server.json</td>
+<td>TypeScript browser application configuration</td>
+</tr>
+<tr>
+<td>tsconfig.spec.json</td>
+<td>TypeScript tests configuration</td>
+</tr>
+</tbody>
+</table>
+<p class="has-line-data" data-line-start="67" data-line-end="68">Lo mas importante de lo agregado tiene que ver con el archivo server.ts que es un server de express que será quien renderice la pagina y los cambios que se realizaron en package.json:</p>
+<pre><code class="has-line-data" data-line-start="70" data-line-end="78" class="language-sh"> <span class="hljs-string">"scripts"</span>: {
+    …
+   <span class="hljs-string">"dev:ssr"</span>: <span class="hljs-string">"ng run testUniversal:serve-ssr"</span>,
+   <span class="hljs-string">"serve:ssr"</span>: <span class="hljs-string">"node dist/testUniversal/server/main.js"</span>,
+   <span class="hljs-string">"build:ssr"</span>: <span class="hljs-string">"ng build --prod &amp;&amp; ng run testUniversal:server:production"</span>,
+   <span class="hljs-string">"prerender"</span>: <span class="hljs-string">"ng run testUniversal:prerender"</span>
+ },
+</code></pre>
+<p class="has-line-data" data-line-start="79" data-line-end="80">Lo basico ya esta realizado, lo que queda ahora es probar que funcione. Para ello necesitamos compilar en SSR. Lo realizaremos con el siguiente comando:</p>
+<pre><code class="has-line-data" data-line-start="82" data-line-end="84" class="language-sh">npm run build:ssr
+</code></pre>
+<p class="has-line-data" data-line-start="85" data-line-end="86">Al terminar la compilacion:</p>
+<pre><code class="has-line-data" data-line-start="88" data-line-end="90" class="language-sh">npm run serve:ssr
+</code></pre>
+<p class="has-line-data" data-line-start="91" data-line-end="93">Podremos ver el sitio en <a href="http://localhost:4000/">http://localhost:4000/</a><br>
+Realicemos la comparación entre los comandos CURL para cada version:</p>
+<pre><code class="has-line-data" data-line-start="95" data-line-end="97" class="language-sh">curl localhost:<span class="hljs-number">4000</span>:
+</code></pre>
+<img src="./../../../assets/images/blog/1/4000.png">
+<pre><code class="has-line-data" data-line-start="101" data-line-end="103" class="language-sh">curl localhost:<span class="hljs-number">4200</span>:
+</code></pre>
+<img src="./../../../assets/images/blog/1/4200.png">
+<p class="has-line-data" data-line-start="106" data-line-end="107">Se puede ver claramente como viene la pagina ya renderizada desde el servidor en el localhost:4000.</p>
+<h2 class="code-line" data-line-start=108 data-line-end=109><a id="Configuracion_Adicional_108"></a>Configuracion Adicional</h2>
+<p class="has-line-data" data-line-start="110" data-line-end="111">En caso de implementar SSR, yo les recomiendo crear un nuevo comando en el archivo package.json. Es muy tedioso ejecutar dos comandos cuando estás trabajando constantemente sobre cambios. Para ello crearemos el siguiente comando justo debajo de <strong>build:ssr</strong> :</p>
+<pre><code class="has-line-data" data-line-start="113" data-line-end="115" class="language-sh"><span class="hljs-string">"start:ssr"</span>: <span class="hljs-string">"npm run build:ssr &amp;&amp; npm run serve:ssr"</span>,
+</code></pre>
+<p class="has-line-data" data-line-start="116" data-line-end="117">Con el anterior comando unificamos el build y el serve en un solo comando.</p>
+<h2 class="code-line" data-line-start=118 data-line-end=119><a id="Conclusin_118"></a>Conclusión</h2>
+<p class="has-line-data" data-line-start="120" data-line-end="121">Aqui damos por terminado este post de configuración de Angular Universal. Esto no es todo… verán que implementar Angular Universal es comenzar de nuevo con algunas cosas, errores que no sabemos porqué suceden. Vamos a tratar de resolver alguno de ellos en los siguientes posteos de este mini tutorial.</p>
+</body></html>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Cheatsheet } from 'src/app/models/cheatsheet.model';
 
 @Component({
   selector: 'app-cheat-sheet',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cheat-sheet.component.scss']
 })
 export class CheatSheetComponent implements OnInit {
-
+  @Input() cheatsheets!: Cheatsheet[];
   constructor() { }
 
   ngOnInit(): void {
