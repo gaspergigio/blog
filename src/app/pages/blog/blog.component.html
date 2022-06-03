@@ -1,3 +1,4 @@
+<div id="infinityContent" infiniteScroll [infiniteScrollDistance]="1" (scrolled)="onScroll()" [scrollWindow]="true">
 <section id="search" class="search-header">
     <div class="min-h-10vh flex justify-start items-center">
         <h2 class="white fs-l3 lh-2 md-lh-1">{{'blog.title' | translate}}</h2>
@@ -20,7 +21,7 @@
 </section>
 
 <!-- blog -->
-<div id="infinityContent" class="scrollContent" infiniteScroll [infiniteScrollDistance]="2" (scrolled)="onScroll()" [scrollWindow]="false">
+
     <app-blog-list [articles]="articles"></app-blog-list>
     <div *ngIf="loading" class="spinner-content">
         <div class="spinner"></div>

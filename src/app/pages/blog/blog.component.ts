@@ -46,9 +46,11 @@ export class BlogComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onScroll() {
+    console.log(this.articles);
     if(this.allData)
       return;
     this.page++;
+    console.log(this.articles);
     this.loadData();
   }
 
