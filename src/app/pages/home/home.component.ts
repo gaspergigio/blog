@@ -18,8 +18,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   subscription: Subscription | undefined; 
   constructor(private pageService: PagesService) { }
 
-  //TODO: blog: 005 (High) - [In Progress]: Agregar Testimonials
-
   ngOnInit(): void {
       this.subscription = this.pageService.getPosts(1, 4).subscribe(articles =>{
         setTimeout(() => {

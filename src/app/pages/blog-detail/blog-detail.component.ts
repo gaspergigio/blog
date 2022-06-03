@@ -78,5 +78,4 @@ export class BlogDetailComponent implements OnInit, OnDestroy, AfterViewInit {
 
 }
 
-//TODO: Ver el cheat-sheet component como funciona.
-//TODO: Recortar imagenes Scalio.
+//TODO: blog: 014 (High) Recortar imagenes Scalio.
