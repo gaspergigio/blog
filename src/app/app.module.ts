@@ -23,6 +23,25 @@ import { CheatSheetComponent } from './sections/cheat-sheet/cheat-sheet.componen
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { initializeApp } from "firebase/app";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBvv21zj4-QtumAs--gKGRJWwY4c_71SR0",
+  authDomain: "blog-2d3ab.firebaseapp.com",
+  projectId: "blog-2d3ab",
+  storageBucket: "blog-2d3ab.appspot.com",
+  messagingSenderId: "875985764725",
+  appId: "1:875985764725:web:e00061a031af91dd48d33c"
+};
+
+const app = initializeApp(firebaseConfig);
+
+//TODO: URL: https://blog-2d3ab.web.app
+/*
+firebase login | firebase login --reauth
+firebase init hosting
+firebase deploy
+*/ 
 
 @NgModule({
   declarations: [
