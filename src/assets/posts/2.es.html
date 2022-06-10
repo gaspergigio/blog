@@ -1,145 +1,109 @@
-<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Dillinger_0"></a>Dillinger 1</h1>
-<h2 class="code-line" data-line-start=1 data-line-end=2 ><a id="_The_Last_Markdown_Editor_Ever__1"></a><em>The Last Markdown Editor, Ever</em></h2>
-<p class="has-line-data" data-line-start="3" data-line-end="4"><a href="https://nodesource.com/products/nsolid"><img src="https://cldup.com/dTxpPi9lDf.thumb.png" alt="N|Solid"></a></p>
-<p class="has-line-data" data-line-start="5" data-line-end="6"><a href="https://travis-ci.org/joemccann/dillinger"><img src="https://travis-ci.org/joemccann/dillinger.svg?branch=master" alt="Build Status"></a></p>
-<p class="has-line-data" data-line-start="7" data-line-end="9">Dillinger is a cloud-enabled, mobile-ready, offline-storage compatible,<br>
-AngularJS-powered HTML5 Markdown editor.</p>
+<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Angular_Universal__Server_Side_Rendering_SSR__Mejorando_el_Rendimiento_II_0"></a>Angular Universal - Server Side Rendering (SSR) - Mejorando el Rendimiento (II)</h1>
+<p class="has-line-data" data-line-start="2" data-line-end="4">Este es el segundo post relacionado a Angular Universal, sino pudiste leer el anterior que corresponde a la implementación de SSR en un proyecto nuevo, acá tenes el enlace.<br>
+Lo que vamos a tratar en este post y en los que seguirán relacionados al tema, tiene que ver con los diferentes problemas que nos podemos encontrar cuando ya estamos trabajando en un proyecto SSR.</p>
+<h2 class="code-line" data-line-start=5 data-line-end=6 ><a id="TTFB_Qu_es_5"></a>TTFB ¿Qué es?</h2>
+<p class="has-line-data" data-line-start="7" data-line-end="8">Se puede llamar TTFB al tiempo en que demora la pagina en hacer rendering o llamado de otra manera, el tiempo del primer byte o “Time to First Byte”. Si utilizamos Chrome y abrimos las herramientas de desarrollador, podemos ver la diferencia entre los proyectos ejecutados con ng serve, con respecto a los proyectos de SSR.</p>
+<p class="has-line-data" data-line-start="9" data-line-end="10">Primero miremos el tiempo para SSR:</p>
+<p class="has-line-data" data-line-start="11" data-line-end="12">En el popup que se levanta al estar sobre localhost, podemos ver que casi la totalidad del tiempo de demora corresponde al TTFB.</p>
+<p class="has-line-data" data-line-start="13" data-line-end="14">Luego miremos lo que va mostrando un ng Serve:</p>
+<p class="has-line-data" data-line-start="15" data-line-end="16">En principio podemos notar que hay mayor demora en términos generales, pero sobre todo localhost tiene una diferencia notable. La mayor demora se refleja porque la página tiene que renderizar en el servidor y se envía al browser renderizada.</p>
+<p class="has-line-data" data-line-start="17" data-line-end="18">Vale destacar que 168 milisegundos es una cantidad de segundos de espera que para el usuario es imperceptible, pero ¿qué pasa si tenemos 10 segundos de espera o 20 segundos? No podemos tener esa espera en ninguna página en el ámbito profesional, simplemente no refleja ni calidad ni un buen desarrollo. ¿Cuales pueden ser las causas de tener esa cantidad de segundos de TTFB? Las causas pueden ser variadas, y  las enumeramos a continuación:</p>
+<h2 class="code-line" data-line-start=19 data-line-end=20 ><a id="Timeouts_19"></a>Timeouts</h2>
+<p class="has-line-data" data-line-start="21" data-line-end="22">Si agregamos el siguiente codigo en el OnInit del archivo app.component.ts veremos que pasa:</p>
+<pre><code class="has-line-data" data-line-start="24" data-line-end="33" class="language-sh"><span class="hljs-built_in">export</span> class AppComponent implements OnInit {
+ title = <span class="hljs-string">'testUniversal'</span>;
+ ngOnInit(): void {
+   <span class="hljs-built_in">set</span>Timeout(() =&gt; {
+     this.title = <span class="hljs-string">'Hi World!'</span>;
+   }, <span class="hljs-number">30000</span>)
+ }
+ }
+</code></pre>
+<p class="has-line-data" data-line-start="34" data-line-end="35">Si ejecutamos con ng Serve, se renderizará la pagina con la propiedad title con valor testUniversal y luego de 30 segundos, cambiará.</p>
+<p class="has-line-data" data-line-start="36" data-line-end="37">¿Que pasa en SSR? Lo ejecutamos y tenemos el siguiente resultado:</p>
+<p class="has-line-data" data-line-start="38" data-line-end="40">La página no se renderiza hasta pasados los 30 segundos.<br>
+Esto nos indica que debemos cuidar de no agregar timeouts en los constructores y en los ngOnInit de la página porque tendrán una repercusión en el TTFB. El usuario simplemente no puede esperar ese tiempo para ver algo en el Browser.</p>
+<h2 class="code-line" data-line-start=41 data-line-end=42 ><a id="Promesas_41"></a>Promesas</h2>
+<p class="has-line-data" data-line-start="43" data-line-end="45">De la misma manera en que pueden existir demoras con el settimeout, podemos tener demoras al realizar una tarea compleja con una función mediante promesas. SSR esperará que la promesa devuelva un resultado antes de renderizar.<br>
+Los casos más comunes son las peticiones HTTP que funcionan de esta manera tanto para obtener información desde un backend, como así también obtener un recurso (imagen, documento, etc).</p>
+<h2 class="code-line" data-line-start=46 data-line-end=47 ><a id="Utilizar_Compression_46"></a>Utilizar Compression</h2>
+<p class="has-line-data" data-line-start="48" data-line-end="49">La compresión es un proceso que puede disminuir en gran medida el tamaño del body del response de la página renderizada desde el servidor y trae como consecuencia aumentar la velocidad de una aplicación web. Para la compresión gzip, puedes utilizar el middleware de compresión en tu aplicación Express.</p>
+<p class="has-line-data" data-line-start="50" data-line-end="51">Para realizar estos e trabaja sobre el archivo server.ts con los siguientes cambios:</p>
+<p class="has-line-data" data-line-start="52" data-line-end="53">Agregamos en los imports:</p>
+<pre><code class="has-line-data" data-line-start="55" data-line-end="57" class="language-sh">import * as compression from <span class="hljs-string">'compression'</span>;
+</code></pre>
+<p class="has-line-data" data-line-start="58" data-line-end="59">Puede que angular nos tire algun error al agregar el import. En ese caso deberemos agregar el tipo por npm:</p>
+<pre><code class="has-line-data" data-line-start="61" data-line-end="63" class="language-sh">npm install --save @types/compression
+</code></pre>
+<p class="has-line-data" data-line-start="64" data-line-end="65">Luego agregamos el middleware en la funciona app() del rest server de Node:</p>
+<pre><code class="has-line-data" data-line-start="67" data-line-end="72" class="language-sh"><span class="hljs-built_in">export</span> <span class="hljs-keyword">function</span> app(): express.Express {
+   const server = express();
+   server.use(compression());
+   …
+</code></pre>
+<h2 class="code-line" data-line-start=73 data-line-end=74 ><a id="Evitar_Duplicacion_de_HTTP_Calls_73"></a>Evitar Duplicacion de HTTP Calls</h2>
+<p class="has-line-data" data-line-start="75" data-line-end="76">Una de las primeras cosas que vamos a notar cuando arrancamos a trabajar con angular Universal, es que en la primera carga, tenemos duplicación de HTTP Calls. Es decir que las llamadas a las Apis para el consumo de datos se realizan por duplicado en el momento de cargar la página. Decimos que se da en la primera llamada, porque angular funciona de manera SPA, una vez cargada, el routing funciona del lado del cliente. De todos modos podemos entrar a cualquier página si tenemos la URL de la misma.</p>
+<p class="has-line-data" data-line-start="77" data-line-end="78">Para solucionarlo debemos utilizar el <strong>TransferHttpCacheModule</strong> de Angular Universal en tu app.module y <strong>ServerTransferStateModule</strong> en tu app.server.module.</p>
+<p class="has-line-data" data-line-start="79" data-line-end="80">app.module:</p>
+<pre><code class="has-line-data" data-line-start="81" data-line-end="90" class="language-sh">import { TransferHttpCacheModule } from <span class="hljs-string">'@nguniversal/common'</span>;
+ 
+@NgModule({
+   imports: [
+       …
+       TransferHttpCacheModule,
+…
+   ],
+</code></pre>
+<p class="has-line-data" data-line-start="91" data-line-end="92">app.server.module</p>
+<pre><code class="has-line-data" data-line-start="93" data-line-end="101" class="language-sh">import { ServerModule, ServerTransferStateModule } from <span class="hljs-string">'@angular/platform-server'</span>;
+ 
+@NgModule({
+   imports: [AppModule, ServerModule, ServerTransferStateModule],
+…
+})
+<span class="hljs-built_in">export</span> class AppServerModule {}
+</code></pre>
+<p class="has-line-data" data-line-start="102" data-line-end="103">Al realizar este cambio, las llamadas HTTP no se duplicarán en la primera carga del sitio, sin importar a qué página se esté llamando.</p>
+<h2 class="code-line" data-line-start=104 data-line-end=105 ><a id="Server_Side_Cache_104"></a>Server Side Cache</h2>
+<p class="has-line-data" data-line-start="106" data-line-end="107">Una herramienta indispensable a la hora de mejorar el tiempo de carga de cada pagina, es el cache de paginas en el servidor. Para ello utilizaremos un middleware que interceptará todos los request de paginas, y verificará si ya existe en caché para devolver la pagina guardada en ver de renderizar nuevamente.</p>
+<p class="has-line-data" data-line-start="108" data-line-end="109">Primero instalaremos memory-cache para que es una lib de node para realizar esto:</p>
+<pre><code class="has-line-data" data-line-start="110" data-line-end="112" class="language-sh">npm install memory-cache --save
+</code></pre>
+<p class="has-line-data" data-line-start="112" data-line-end="113">Una vez instalada la libreria, la importamos en el archivo server.ts. Justo debajo de los imports declaramos una instancia de caché que utilizaremos en el middleware.</p>
+<pre><code class="has-line-data" data-line-start="115" data-line-end="118" class="language-sh">import * as cache from <span class="hljs-string">'memory-cache'</span>;
+const serverCache = new cache.Cache();
+</code></pre>
+<p class="has-line-data" data-line-start="119" data-line-end="120">debajo del server Express crearemos la siguiente funcion de flecha que será la implementación del middleware:</p>
+<pre><code class="has-line-data" data-line-start="122" data-line-end="140" class="language-sh">const cacheMiddleware = (duration: number) =&gt; {
+ <span class="hljs-built_in">return</span> (req: any, res: any, next: Function) =&gt; {
+   <span class="hljs-built_in">let</span> key = <span class="hljs-string">'__express__'</span> + req.originalUrl || req.url;
+   <span class="hljs-built_in">let</span> cachedBody = serverCache.get(key);
+   <span class="hljs-keyword">if</span> (cachedBody) {
+     res.send(cachedBody);
+     <span class="hljs-built_in">return</span>
+   } <span class="hljs-keyword">else</span> {
+     res.sendResponse = res.send;
+     res.send = (body: any) =&gt; {
+       serverCache.put(key, body, duration * <span class="hljs-number">1000</span>);
+       res.sendResponse(body);
+     }
+     next();
+   }
+ }
+}
+</code></pre>
+<p class="has-line-data" data-line-start="141" data-line-end="142">Basicamente el middleware encapsula todo la funcionalidad de cache y funciona de maravillas. Para usarlo en cada petición lo agregamos de la siguiente manera:</p>
+<pre><code class="has-line-data" data-line-start="144" data-line-end="148" class="language-sh">   server.get(<span class="hljs-string">'*'</span>, cacheMiddleware(<span class="hljs-number">300</span>), (req, res) =&gt; {
+       …
+    });
+</code></pre>
+<p class="has-line-data" data-line-start="149" data-line-end="150">La duración que recibe el middleware es en segundos. Los 300 corresponden a 5 minutos</p>
+<h2 class="code-line" data-line-start=151 data-line-end=152 ><a id="Otras_mejoras_151"></a>Otras mejoras</h2>
+<p class="has-line-data" data-line-start="153" data-line-end="154">Pueden seguir este post de <a href="https://hackernoon.com/angular-server-side-rendering-state-transfer-for-http-requests-wu263t3h">Hackernoon.com</a> que nos da otras 3 optimizaciones que podemos realizar en nuestro sitio en SSR para mejorar:</p>
 <ul>
-<li class="has-line-data" data-line-start="10" data-line-end="11">Type some Markdown on the left</li>
-<li class="has-line-data" data-line-start="11" data-line-end="12">See HTML in the right</li>
-<li class="has-line-data" data-line-start="12" data-line-end="14">✨Magic ✨</li>
+<li class="has-line-data" data-line-start="154" data-line-end="155">Largest Contentful Paint (LCP)</li>
+<li class="has-line-data" data-line-start="155" data-line-end="156">First Input Delay (FID)</li>
+<li class="has-line-data" data-line-start="156" data-line-end="157">Cumulative Layout Shift (CLS)</li>
 </ul>
-<h2 class="code-line" data-line-start=14 data-line-end=15 ><a id="Features_14"></a>Features</h2>
-<ul>
-<li class="has-line-data" data-line-start="16" data-line-end="17">Import a HTML file and watch it magically convert to Markdown</li>
-<li class="has-line-data" data-line-start="17" data-line-end="18">Drag and drop images (requires your Dropbox account be linked)</li>
-<li class="has-line-data" data-line-start="18" data-line-end="19">Import and save files from GitHub, Dropbox, Google Drive and One Drive</li>
-<li class="has-line-data" data-line-start="19" data-line-end="20">Drag and drop markdown and HTML files into Dillinger</li>
-<li class="has-line-data" data-line-start="20" data-line-end="22">Export documents as Markdown, HTML and PDF</li>
-</ul>
-<p class="has-line-data" data-line-start="22" data-line-end="25">Markdown is a lightweight markup language based on the formatting conventions<br>
-that people naturally use in email.<br>
-As <a href="http://daringfireball.net">John Gruber</a> writes on the <a href="http://daringfireball.net/projects/markdown/">Markdown site</a></p>
-<blockquote>
-<p class="has-line-data" data-line-start="26" data-line-end="33">The overriding design goal for Markdown’s<br>
-formatting syntax is to make it as readable<br>
-as possible. The idea is that a<br>
-Markdown-formatted document should be<br>
-publishable as-is, as plain text, without<br>
-looking like it’s been marked up with tags<br>
-or formatting instructions.</p>
-</blockquote>
-<p class="has-line-data" data-line-start="34" data-line-end="37">This text you see here is *actually- written in Markdown! To get a feel<br>
-for Markdown’s syntax, type some text into the left window and<br>
-watch the results in the right.</p>
-<h2 class="code-line" data-line-start=38 data-line-end=39 ><a id="Tech_38"></a>Tech</h2>
-<p class="has-line-data" data-line-start="40" data-line-end="41">Dillinger uses a number of open source projects to work properly:</p>
-<ul>
-<li class="has-line-data" data-line-start="42" data-line-end="43"><a href="http://angularjs.org">AngularJS</a> - HTML enhanced for web apps!</li>
-<li class="has-line-data" data-line-start="43" data-line-end="44"><a href="http://ace.ajax.org">Ace Editor</a> - awesome web-based text editor</li>
-<li class="has-line-data" data-line-start="44" data-line-end="45"><a href="https://github.com/markdown-it/markdown-it">markdown-it</a> - Markdown parser done right. Fast and easy to extend.</li>
-<li class="has-line-data" data-line-start="45" data-line-end="46"><a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap</a> - great UI boilerplate for modern web apps</li>
-<li class="has-line-data" data-line-start="46" data-line-end="47"><a href="http://nodejs.org">node.js</a> - evented I/O for the backend</li>
-<li class="has-line-data" data-line-start="47" data-line-end="48"><a href="http://expressjs.com">Express</a> - fast node.js network app framework <a href="http://twitter.com/tjholowaychuk">@tjholowaychuk</a></li>
-<li class="has-line-data" data-line-start="48" data-line-end="49"><a href="http://gulpjs.com">Gulp</a> - the streaming build system</li>
-<li class="has-line-data" data-line-start="49" data-line-end="51"><a href="https://breakdance.github.io/breakdance/">Breakdance</a> - HTML<br>
-to Markdown converter</li>
-<li class="has-line-data" data-line-start="51" data-line-end="53"><a href="http://jquery.com">jQuery</a> - duh</li>
-</ul>
-<p class="has-line-data" data-line-start="53" data-line-end="55">And of course Dillinger itself is open source with a <a href="https://github.com/joemccann/dillinger">public repository</a><br>
-on GitHub.</p>
-<h2 class="code-line" data-line-start=56 data-line-end=57 ><a id="Installation_56"></a>Installation</h2>
-<p class="has-line-data" data-line-start="58" data-line-end="59">Dillinger requires <a href="https://nodejs.org/">Node.js</a> v10+ to run.</p>
-<p class="has-line-data" data-line-start="60" data-line-end="61">Install the dependencies and devDependencies and start the server.</p>
-<pre><code class="has-line-data" data-line-start="63" data-line-end="67" class="language-sh"><span class="hljs-built_in">cd</span> dillinger
-npm i
-node app
-</code></pre>
-<p class="has-line-data" data-line-start="68" data-line-end="69">For production environments…</p>
-<pre><code class="has-line-data" data-line-start="71" data-line-end="74" class="language-sh">npm install --production
-NODE_ENV=production node app
-</code></pre>
-<h2 class="code-line" data-line-start=75 data-line-end=76 ><a id="Plugins_75"></a>Plugins</h2>
-<p class="has-line-data" data-line-start="77" data-line-end="79">Dillinger is currently extended with the following plugins.<br>
-Instructions on how to use them in your own application are linked below.</p>
-<table class="table table-striped table-bordered">
-<thead>
-<tr>
-<th>Plugin</th>
-<th>README</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Dropbox</td>
-<td><a href="https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md">plugins/dropbox/README.md</a></td>
-</tr>
-<tr>
-<td>GitHub</td>
-<td><a href="https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md">plugins/github/README.md</a></td>
-</tr>
-<tr>
-<td>Google Drive</td>
-<td><a href="https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md">plugins/googledrive/README.md</a></td>
-</tr>
-<tr>
-<td>OneDrive</td>
-<td><a href="https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md">plugins/onedrive/README.md</a></td>
-</tr>
-<tr>
-<td>Medium</td>
-<td><a href="https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md">plugins/medium/README.md</a></td>
-</tr>
-<tr>
-<td>Google Analytics</td>
-<td><a href="https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md">plugins/googleanalytics/README.md</a></td>
-</tr>
-</tbody>
-</table>
-<h2 class="code-line" data-line-start=89 data-line-end=90 ><a id="Development_89"></a>Development</h2>
-<p class="has-line-data" data-line-start="91" data-line-end="92">Want to contribute? Great!</p>
-<p class="has-line-data" data-line-start="93" data-line-end="95">Dillinger uses Gulp + Webpack for fast developing.<br>
-Make a change in your file and instantaneously see your updates!</p>
-<p class="has-line-data" data-line-start="96" data-line-end="97">Open your favorite Terminal and run these commands.</p>
-<p class="has-line-data" data-line-start="98" data-line-end="99">First Tab:</p>
-<pre><code class="has-line-data" data-line-start="101" data-line-end="103" class="language-sh">node app
-</code></pre>
-<p class="has-line-data" data-line-start="104" data-line-end="105">Second Tab:</p>
-<pre><code class="has-line-data" data-line-start="107" data-line-end="109" class="language-sh">gulp watch
-</code></pre>
-<p class="has-line-data" data-line-start="110" data-line-end="111">(optional) Third:</p>
-<pre><code class="has-line-data" data-line-start="113" data-line-end="115" class="language-sh">karma <span class="hljs-built_in">test</span>
-</code></pre>
-<h4 class="code-line" data-line-start=116 data-line-end=117 ><a id="Building_for_source_116"></a>Building for source</h4>
-<p class="has-line-data" data-line-start="118" data-line-end="119">For production release:</p>
-<pre><code class="has-line-data" data-line-start="121" data-line-end="123" class="language-sh">gulp build --prod
-</code></pre>
-<p class="has-line-data" data-line-start="124" data-line-end="125">Generating pre-built zip archives for distribution:</p>
-<pre><code class="has-line-data" data-line-start="127" data-line-end="129" class="language-sh">gulp build dist --prod
-</code></pre>
-<h2 class="code-line" data-line-start=130 data-line-end=131 ><a id="Docker_130"></a>Docker</h2>
-<p class="has-line-data" data-line-start="132" data-line-end="133">Dillinger is very easy to install and deploy in a Docker container.</p>
-<p class="has-line-data" data-line-start="134" data-line-end="137">By default, the Docker will expose port 8080, so change this within the<br>
-Dockerfile if necessary. When ready, simply use the Dockerfile to<br>
-build the image.</p>
-<pre><code class="has-line-data" data-line-start="139" data-line-end="142" class="language-sh"><span class="hljs-built_in">cd</span> dillinger
-docker build -t &lt;youruser&gt;/dillinger:<span class="hljs-variable">package.json.version</span> .
-</code></pre>
-<p class="has-line-data" data-line-start="143" data-line-end="146">This will create the dillinger image and pull in the necessary dependencies.<br>
-Be sure to swap out <code>package.json.version</code> with the actual<br>
-version of Dillinger.</p>
-<p class="has-line-data" data-line-start="147" data-line-end="150">Once done, run the Docker image and map the port to whatever you wish on<br>
-your host. In this example, we simply map port 8000 of the host to<br>
-port 8080 of the Docker (or whatever port was exposed in the Dockerfile):</p>
-<pre><code class="has-line-data" data-line-start="152" data-line-end="154" class="language-sh">docker run <span class="hljs-operator">-d</span> -p <span class="hljs-number">8000</span>:<span class="hljs-number">8080</span> --restart=always --cap-add=SYS_ADMIN --name=dillinger &lt;youruser&gt;/dillinger:<span class="hljs-variable">package.json.version</span>
-</code></pre>
-<blockquote>
-<p class="has-line-data" data-line-start="155" data-line-end="156">Note: <code>--capt-add=SYS-ADMIN</code> is required for PDF rendering.</p>
-</blockquote>
-<p class="has-line-data" data-line-start="157" data-line-end="159">Verify the deployment by navigating to your server address in<br>
-your preferred browser.</p>
-<pre><code class="has-line-data" data-line-start="161" data-line-end="163" class="language-sh"><span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">8000</span>
-</code></pre>
-<h2 class="code-line" data-line-start=164 data-line-end=165 ><a id="License_164"></a>License</h2>
-<p class="has-line-data" data-line-start="166" data-line-end="167">MIT</p>
-<p class="has-line-data" data-line-start="168" data-line-end="169"><strong>Free Software, Hell Yeah!</strong></p>
+<h2 class="code-line" data-line-start=159 data-line-end=160 ><a id="Conclusin_159"></a>Conclusión</h2>
+<p class="has-line-data" data-line-start="161" data-line-end="162">Hasta ahora hemos comentado las optimizaciones mas sencillas para Angular con SSR. En los siguientes artículos tocaremos temas mas complicados de aplicar que serán Lazy Loading y Pre-rendering</p>

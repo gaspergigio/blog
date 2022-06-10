@@ -36,10 +36,16 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-//TODO: URL: https://blog-2d3ab.web.app
+//TODO: PRODUCTION URL: https://blog-2d3ab.web.app
+//TODO: DEPLOY STEPS
 /*
+ng build -- prod
 firebase login | firebase login --reauth
 firebase init hosting
+dist/blog
+Y
+N
+N
 firebase deploy
 */ 
 
