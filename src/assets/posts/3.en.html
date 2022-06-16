@@ -1,10 +1,18 @@
-<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Angular_Universal__Server_Side_Rendering_SSR__Lazy_Loading_III_0"></a>Angular Universal - Server Side Rendering (SSR) - Lazy Loading (III)</h1>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Lazy Loading (III)</title><style></style></head><body id="preview"></body>
+<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Angular_Universal__Server_Side_Rendering_SSR__Mejorando_el_Rendimiento_II_0"></a>Introducción</h1>
+<p class="has-line-data" data-line-start="2" data-line-end="3">Este es un tutorial referido a Server Side Rendering (SSR) en el cual mediante varios artículos trataremos de cubrir todos los aspectos de la tecnología, específicamente con la implementación de Angular Universal. Puedes acceder a las diferentes publicaciones siguiente los siguientes enlaces:</p>
+<ul class="ml-5 pl-5">
+  <li class="has-line-data" data-line-start="12" data-line-end="13"><a href="blog/1" class="indigo">Primeros Pasos (I)</a></li>
+  <li class="has-line-data" data-line-start="13" data-line-end="14"><a href="blog/2" class="indigo">Mejorando el Rendimiento (II)</a></li>
+  <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/3" class="indigo">Lazy Loading (III)</a></li>
+  <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/4" class="indigo">Prerendering and SS and Browser Detection (IV)</a></li>
+</ul>
 <p class="has-line-data" data-line-start="2" data-line-end="3">Este es el tercer post del mini tutorial de Angular Universal. En los post anteriores además de ocuparnos de la implementación en un proyecto nuevo, nos ocupamos de mostrar los principales inconvenientes que tendrán al comenzar a trabajar del lado del servidor y como solventarlas. En este post y los siguientes dos, nos abocaremos a 3 apartados que necesitan su post particular. Particularmente ahora veremos que es el Lazy Loading y porqué debereríamos utilizarlo en SSR.</p>
 <p class="has-line-data" data-line-start="4" data-line-end="5">En terminos sencillos, <strong>lazy loading</strong> que significa  carga asíncrona o diferida o perezosa, es un patrón de diseño que se utiliza para aumentar la velocidad de carga de una aplicación y consiste en retrasar la inicialización de algunos componentes u objetos hasta el momento de su utilización.</p>
 <p class="has-line-data" data-line-start="6" data-line-end="7">En el post anterior vimos que es importantisimo optimizar el proceso de carga inicial de la aplicación SPA y acá es donde entra Lazy loading. Para demostrarlo, lo primero que debemos incluir son diferentes páginas, ya que es la manera más común de lazy loading en Angular que viene de la mano de la implementacion de <strong>Routing</strong>.</p>
 <h2 class="code-line" data-line-start=8 data-line-end=9 ><a id="Creacin_de_Mdulos_y_Pginas_8"></a>Creación de Módulos y Páginas</h2>
 <p class="has-line-data" data-line-start="10" data-line-end="11">Lo primero que debemos hacer es crear una carpeta que la llamaremos pages que contendrá las siguientes paginas:</p>
-<ul>
+<ul class="ml-5 pl-5">
 <li class="has-line-data" data-line-start="12" data-line-end="13">Home</li>
 <li class="has-line-data" data-line-start="13" data-line-end="14">Contact</li>
 <li class="has-line-data" data-line-start="14" data-line-end="16">About</li>
@@ -155,5 +163,6 @@ Si probamos la aplicación el Routing esta funcionando y podemos ver el contenid
 <p class="has-line-data" data-line-start="209" data-line-end="210">Ya hemos hecho las modificaciones para Lazy Loading. Veremos como se configura el bundle para ello hacemos el build de la aplicacion:</p>
 <p class="has-line-data" data-line-start="211" data-line-end="212">npm run build:ssr</p>
 <p class="has-line-data" data-line-start="213" data-line-end="214">Si vemos los bundles que se generan en el lado del Server, tendremos 3 modulos en archivos .js separados correspondientes a las 3 páginas que realizamos:</p>
+<img class="mt-5 mb-5" src="./../../../assets/images/blog/3/lazy-loading-chunks.png">
 <h2 class="code-line" data-line-start=215 data-line-end=216 ><a id="Conclusin_215"></a>Conclusión</h2>
 <p class="has-line-data" data-line-start="217" data-line-end="218">Los nuevos trozos o chunks creados promedian más de 1.20 KB que para el ejemplo del post no es significativo, pero sí lo será cuando cada módulo contenga muchos más componentes y librerías adentro.</p>

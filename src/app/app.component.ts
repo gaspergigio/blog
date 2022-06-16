@@ -19,8 +19,7 @@ export class AppComponent{
 
   //TODO: blog-003 (High): Implementar Angular Universal
   //TODO: blog-013 (Low): Agregar Google analytics
-  //TODO: blog-014 (Urgent): Terminar los articulos de universal en ambos idiomas.
-  //TODO: blog-001 (Urgent): Corregir los detalles de los articulos + Agregar las Imágenes
+  //TODO: blog-014 (Urgent): Terminar los articulos de universal en ambos idiomas. Falta del 2 al 4: Revisar Texto y Traducir
   //TODO: blog-002 (Urgent): Multilenguaje en los articulos.
 
 }

@@ -1,11 +1,21 @@
-<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Angular_Universal__Server_Side_Rendering_SSR__Mejorando_el_Rendimiento_II_0"></a>Angular Universal - Server Side Rendering (SSR) - Mejorando el Rendimiento (II)</h1>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Mejorando el Rendimiento (II)</title><style></style></head><body id="preview"></body>
+<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Angular_Universal__Server_Side_Rendering_SSR__Mejorando_el_Rendimiento_II_0"></a>Introducción</h1>
+<p class="has-line-data" data-line-start="2" data-line-end="3">Este es un tutorial referido a Server Side Rendering (SSR) en el cual mediante varios artículos trataremos de cubrir todos los aspectos de la tecnología, específicamente con la implementación de Angular Universal. Puedes acceder a las diferentes publicaciones siguiente los siguientes enlaces:</p>
+<ul class="ml-5 pl-5">
+  <li class="has-line-data" data-line-start="12" data-line-end="13"><a href="blog/1" class="indigo">Primeros Pasos (I)</a></li>
+  <li class="has-line-data" data-line-start="13" data-line-end="14"><a href="blog/2" class="indigo">Mejorando el Rendimiento (II)</a></li>
+  <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/3" class="indigo">Lazy Loading (III)</a></li>
+  <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/4" class="indigo">Prerendering and SS and Browser Detection (IV)</a></li>
+</ul>
 <p class="has-line-data" data-line-start="2" data-line-end="4">Este es el segundo post relacionado a Angular Universal, sino pudiste leer el anterior que corresponde a la implementación de SSR en un proyecto nuevo, acá tenes el enlace.<br>
 Lo que vamos a tratar en este post y en los que seguirán relacionados al tema, tiene que ver con los diferentes problemas que nos podemos encontrar cuando ya estamos trabajando en un proyecto SSR.</p>
 <h2 class="code-line" data-line-start=5 data-line-end=6 ><a id="TTFB_Qu_es_5"></a>TTFB ¿Qué es?</h2>
 <p class="has-line-data" data-line-start="7" data-line-end="8">Se puede llamar TTFB al tiempo en que demora la pagina en hacer rendering o llamado de otra manera, el tiempo del primer byte o “Time to First Byte”. Si utilizamos Chrome y abrimos las herramientas de desarrollador, podemos ver la diferencia entre los proyectos ejecutados con ng serve, con respecto a los proyectos de SSR.</p>
 <p class="has-line-data" data-line-start="9" data-line-end="10">Primero miremos el tiempo para SSR:</p>
+<img src="./../../../assets/images/blog/2/SSR-time.png">
 <p class="has-line-data" data-line-start="11" data-line-end="12">En el popup que se levanta al estar sobre localhost, podemos ver que casi la totalidad del tiempo de demora corresponde al TTFB.</p>
 <p class="has-line-data" data-line-start="13" data-line-end="14">Luego miremos lo que va mostrando un ng Serve:</p>
+<img src="./../../../assets/images/blog/2/ng-serve.png">
 <p class="has-line-data" data-line-start="15" data-line-end="16">En principio podemos notar que hay mayor demora en términos generales, pero sobre todo localhost tiene una diferencia notable. La mayor demora se refleja porque la página tiene que renderizar en el servidor y se envía al browser renderizada.</p>
 <p class="has-line-data" data-line-start="17" data-line-end="18">Vale destacar que 168 milisegundos es una cantidad de segundos de espera que para el usuario es imperceptible, pero ¿qué pasa si tenemos 10 segundos de espera o 20 segundos? No podemos tener esa espera en ninguna página en el ámbito profesional, simplemente no refleja ni calidad ni un buen desarrollo. ¿Cuales pueden ser las causas de tener esa cantidad de segundos de TTFB? Las causas pueden ser variadas, y  las enumeramos a continuación:</p>
 <h2 class="code-line" data-line-start=19 data-line-end=20 ><a id="Timeouts_19"></a>Timeouts</h2>
@@ -21,6 +31,7 @@ Lo que vamos a tratar en este post y en los que seguirán relacionados al tema, 
 </code></pre>
 <p class="has-line-data" data-line-start="34" data-line-end="35">Si ejecutamos con ng Serve, se renderizará la pagina con la propiedad title con valor testUniversal y luego de 30 segundos, cambiará.</p>
 <p class="has-line-data" data-line-start="36" data-line-end="37">¿Que pasa en SSR? Lo ejecutamos y tenemos el siguiente resultado:</p>
+<img src="./../../../assets/images/blog/2/SSR-timeout.png">
 <p class="has-line-data" data-line-start="38" data-line-end="40">La página no se renderiza hasta pasados los 30 segundos.<br>
 Esto nos indica que debemos cuidar de no agregar timeouts en los constructores y en los ngOnInit de la página porque tendrán una repercusión en el TTFB. El usuario simplemente no puede esperar ese tiempo para ver algo en el Browser.</p>
 <h2 class="code-line" data-line-start=41 data-line-end=42 ><a id="Promesas_41"></a>Promesas</h2>

@@ -1,9 +1,16 @@
 <!DOCTYPE html><html><head><meta charset="utf-8"><title>Primeros Pasos (I)</title><style></style></head><body id="preview">
 <h1 class="code-line" data-line-start=0 data-line-end=1><a id="Introduccin_0"></a>Introducción</h1>
+<p class="has-line-data" data-line-start="2" data-line-end="3">Este es un tutorial referido a Server Side Rendering (SSR) en el cual mediante varios artículos trataremos de cubrir todos los aspectos de la tecnología, específicamente con la implementación de Angular Universal. Puedes acceder a las diferentes publicaciones en los siguientes enlaces:</p>
+<ul class="ml-5 pl-5">
+  <li class="has-line-data" data-line-start="12" data-line-end="13"><a href="blog/1" class="indigo">Primeros Pasos (I)</a></li>
+  <li class="has-line-data" data-line-start="13" data-line-end="14"><a href="blog/2" class="indigo">Mejorando el Rendimiento (II)</a></li>
+  <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/3" class="indigo">Lazy Loading (III)</a></li>
+  <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/4" class="indigo">Prerendering and SS and Browser Detection (IV)</a></li>
+</ul>
 <p class="has-line-data" data-line-start="2" data-line-end="3">Lo primero que debemos saber es que las aplicaciones de Angular se ejecutan en el Cliente, es decir en el navegador del usuario. No se está renderizando en el servidor como lo harían páginas estáticas. Esto trae como consecuencias grandes problemas a la hora del SEO, sobre todo para sitios en donde el Cliente tenga un objetivo de Marketing.</p>
 <p class="has-line-data" data-line-start="4" data-line-end="5">Antes de avanzar vamos a considerar que el lector tiene alguna experiencia en programación en Angular (2 o +), por lo que damos por sentado que tiene instalado Angular CLI y npm.</p>
 <h2 class="code-line" data-line-start=6 data-line-end=7><a id="Inicio_del_Proyecto_de_Angular_6"></a>Inicio del Proyecto de Angular</h2>
-<p class="has-line-data" data-line-start="8" data-line-end="9">Lo primero que debemos hacer es crear un proyecto de angular. Si ya tienes un proyecto, puedes utilizar el que tienes y saltar hasta la siguiente sección.</p>
+<p class="has-line-data" data-line-start="8" data-line-end="9">Lo primero que debemos hacer es crear un proyecto de angular. Si ya tienes un proyecto, puedes utilizar el que tienes y saltar hasta la siguiente sección en donde explicaremos como implementar Angular Universal.</p>
 <p class="has-line-data" data-line-start="10" data-line-end="11">Simplemente en cualquier carpeta que podría ser una carpeta Project o Angular en nuestro ordenador abriremos una terminal. En la terminal escribiremos:</p>
 <pre><code class="has-line-data" data-line-start="13" data-line-end="15" class="language-sh">ng new [nombre del proyecto]
 </code></pre>
@@ -17,14 +24,15 @@ ng serve [nombre del proyecto]
 <p class="has-line-data" data-line-start="24" data-line-end="25">El proyecto se levantará en <strong>localhost:4200</strong> que es lo usual. Una vez corriendo la aplicación, hagamos lo siguiente. Abre otra terminal y ejecuta:</p>
 <pre><code class="has-line-data" data-line-start="27" data-line-end="29" class="language-sh">curl localhost:<span class="hljs-number">4200</span>
 </code></pre>
+<img class="mt-5 mb-5" src="./../../../assets/images/blog/1/4200.jpg">
 <p class="has-line-data" data-line-start="30" data-line-end="31">Lo que nos va a mostrar el resultado del comando <strong>Curl</strong> es lo que verá el motor de búsqueda cuando vea nuestra página. Como puedes observar el <strong>body</strong> de nuestra aplicación estará casi vacío.</p>
 <h2 class="code-line" data-line-start=32 data-line-end=33><a id="Una_breve_introduccin_a_SEO_32"></a>Una breve introducción a SEO</h2>
 <p class="has-line-data" data-line-start="34" data-line-end="35">Angular funciona como una SPA (single page app), que tiene una carga inicial y que luego va cambiando de ruta mediante el uso de Routing. Los spiders de los buscador no pueden ver el contenido de la aplicación de esta manera. No pueden indexar la applicación de manera correcta.</p>
 <p class="has-line-data" data-line-start="36" data-line-end="37">La indexación de Google es el proceso por el cual google anexa una página a su índice para mostrarla en los resultados de búsqueda. Es decir, google obtiene información de la estructura de la página para crear su índice. Si tu página no se encuentra en el índice de google no podrá ser encontrada en una búsqueda.</p>
 <p class="has-line-data" data-line-start="38" data-line-end="39">Pero tenemos otro problema, que tiene que ver con la información de la página: Para indexar una página google mediante algoritmos va a clasificar la pagina basado en su contenido, imágenes, etc. Como consecuencia, si tu página no tiene información completa para rellenar el indice de google, es dificil que sea encontrada cuando un usuario la busque.</p>
 <p class="has-line-data" data-line-start="40" data-line-end="41">Como vimos cuando ejecutamos el comando Curl, la implementación normal de Angular no ayuda a la indexación de google. Para resolver esto utilizamos Server Side Rendering (SSR o Universal) que renderizará el contenido en el server y servirá la página ya construida al usuario.</p>
-<h2 class="code-line" data-line-start=42 data-line-end=43><a id="Implementando_Angular_Universal_42"></a>Implementando Angular Universal</h2>
-<p class="has-line-data" data-line-start="44" data-line-end="45">Para implementar angular universal, solo debemos seguir su <a href="https://angular.io/guide/universal">link</a> oficial. Lo hagamos nosotros:</p>
+<h2 class="code-line" data-line-start=42 data-line-end=43><a id="Implementando_Angular_Universal_42" name="Implementando_Angular_Universal_42"></a>Implementando Angular Universal</h2>
+<p class="has-line-data" data-line-start="44" data-line-end="45">Para implementar angular universal, solo debemos seguir su <a href="https://angular.io/guide/universal" target="_blank">link</a> oficial. Lo hagamos nosotros:</p>
 <p class="has-line-data" data-line-start="46" data-line-end="47">Abramos la terminal y ejecutemos:</p>
 <pre><code class="has-line-data" data-line-start="49" data-line-end="51" class="language-sh">ng add @nguniversal/express-engine
 </code></pre>
@@ -94,14 +102,14 @@ ng serve [nombre del proyecto]
 <p class="has-line-data" data-line-start="85" data-line-end="86">Al terminar la compilacion:</p>
 <pre><code class="has-line-data" data-line-start="88" data-line-end="90" class="language-sh">npm run serve:ssr
 </code></pre>
-<p class="has-line-data" data-line-start="91" data-line-end="93">Podremos ver el sitio en <a href="http://localhost:4000/">http://localhost:4000/</a><br>
+<p class="has-line-data" data-line-start="91" data-line-end="93">Podremos ver el sitio en <a href="http://localhost:4000/" target="_blank">http://localhost:4000/</a><br>
 Realicemos la comparación entre los comandos CURL para cada version:</p>
 <pre><code class="has-line-data" data-line-start="95" data-line-end="97" class="language-sh">curl localhost:<span class="hljs-number">4000</span>:
 </code></pre>
-<img src="./../../../assets/images/blog/1/4000.jpg">
+<img class="mt-5 mb-5" src="./../../../assets/images/blog/1/4000.jpg">
 <pre><code class="has-line-data" data-line-start="101" data-line-end="103" class="language-sh">curl localhost:<span class="hljs-number">4200</span>:
 </code></pre>
-<img src="./../../../assets/images/blog/1/4200.jpg">
+<img class="mt-5 mb-5" src="./../../../assets/images/blog/1/4200.jpg">
 <p class="has-line-data" data-line-start="106" data-line-end="107">Se puede ver claramente como viene la pagina ya renderizada desde el servidor en el localhost:4000.</p>
 <h2 class="code-line" data-line-start=108 data-line-end=109><a id="Configuracion_Adicional_108"></a>Configuracion Adicional</h2>
 <p class="has-line-data" data-line-start="110" data-line-end="111">En caso de implementar SSR, yo les recomiendo crear un nuevo comando en el archivo package.json. Es muy tedioso ejecutar dos comandos cuando estás trabajando constantemente sobre cambios. Para ello crearemos el siguiente comando justo debajo de <strong>build:ssr</strong> :</p>
@@ -109,5 +117,7 @@ Realicemos la comparación entre los comandos CURL para cada version:</p>
 </code></pre>
 <p class="has-line-data" data-line-start="116" data-line-end="117">Con el anterior comando unificamos el build y el serve en un solo comando.</p>
 <h2 class="code-line" data-line-start=118 data-line-end=119><a id="Conclusin_118"></a>Conclusión</h2>
-<p class="has-line-data" data-line-start="120" data-line-end="121">Aqui damos por terminado este post de configuración de Angular Universal. Esto no es todo… verán que implementar Angular Universal es comenzar de nuevo con algunas cosas, errores que no sabemos porqué suceden. Vamos a tratar de resolver alguno de ellos en los siguientes posteos de este mini tutorial.</p>
+<p class="has-line-data" data-line-start="120" data-line-end="121">Aqui damos por terminado este post de configuración de Angular Universal. Esto no es todo… se darán cuenta que implementar Angular Universal es comenzar de nuevo con algunas cosas, errores que no sabemos porqué suceden y nuevas luchas con el codigo y la compilación. Vamos a tratar de resolver muchos de ellos en los siguientes posteos de este mini tutorial.</p>
+<p class="has-line-data" data-line-start="120" data-line-end="121">Y no te olvides si te gusta o te resulta util este tutorial dejarme un comentario, una recomendación o un mensaje en Linkedin. Siempre es reconfortante tener un feedback sobre lo que uno hace.</p>
+<p class="has-line-data" data-line-start="120" data-line-end="121">Hasta el próximo artítulo!</p>
 </body></html>
