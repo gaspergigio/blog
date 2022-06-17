@@ -19,8 +19,9 @@ export class AppComponent{
 
   //TODO: blog-003 (High): Implementar Angular Universal
   //TODO: blog-013 (Low): Agregar Google analytics
-  //TODO: blog-014 (Urgent): Terminar los articulos de universal en ambos idiomas. Falta del 2 al 4: Revisar Texto y Traducir
+  //TODO: blog-014 (Urgent): Actualizar conexión de texto entre posteos. Traducir al ingles del 2 en adelante.
   //TODO: blog-002 (Urgent): Multilenguaje en los articulos.
+  //TODO: blog-001 (Urgent): Crear articulo 3 con SEO en SSR y configuraciones en Angular.json y Server.ts. de 17/06
 
 }
 
