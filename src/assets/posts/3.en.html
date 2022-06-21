@@ -1,43 +1,44 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Lazy Loading (III)</title><style></style></head><body id="preview"></body>
-<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Angular_Universal__Server_Side_Rendering_SSR__Mejorando_el_Rendimiento_II_0"></a>Introducción</h1>
-<p class="has-line-data" data-line-start="2" data-line-end="3">Este es un tutorial referido a Server Side Rendering (SSR) en el cual mediante varios artículos trataremos de cubrir todos los aspectos de la tecnología, específicamente con la implementación de Angular Universal. Puedes acceder a las diferentes publicaciones siguiente los siguientes enlaces:</p>
-<ul class="ml-5 pl-5">
-  <li class="has-line-data" data-line-start="12" data-line-end="13"><a href="blog/1" class="indigo">Primeros Pasos (I)</a></li>
-  <li class="has-line-data" data-line-start="13" data-line-end="14"><a href="blog/2" class="indigo">Mejorando el Rendimiento (II)</a></li>
-  <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/3" class="indigo">Lazy Loading (III)</a></li>
-  <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/4" class="indigo">Prerendering and SS and Browser Detection (IV)</a></li>
-</ul>
-<p class="has-line-data" data-line-start="2" data-line-end="3">Este es el tercer post del mini tutorial de Angular Universal. En los post anteriores además de ocuparnos de la implementación en un proyecto nuevo, nos ocupamos de mostrar los principales inconvenientes que tendrán al comenzar a trabajar del lado del servidor y como solventarlas. En este post y el siguiente, nos abocaremos a 2 apartados que necesitan su post particular. Particularmente ahora veremos que es el Lazy Loading y porqué debereríamos utilizarlo en SSR.</p>
-<p class="has-line-data" data-line-start="4" data-line-end="5">En terminos sencillos, <strong>lazy loading</strong> que significa  carga asíncrona o diferida o perezosa, es un patrón de diseño que se utiliza para aumentar la velocidad de carga de una aplicación y consiste en retrasar la inicialización de algunos componentes u objetos hasta el momento de su utilización.</p>
-<p class="has-line-data" data-line-start="6" data-line-end="7">En el post anterior vimos que es importantisimo optimizar el proceso de carga inicial de la aplicación SPA y acá es donde entra Lazy loading. Para demostrarlo, lo primero que debemos incluir son diferentes páginas, ya que es la manera más común de implementar lazy loading en Angular y viene de la mano de la implementacion de <strong>Routing</strong>.</p>
-<h2 class="code-line" data-line-start=8 data-line-end=9 ><a id="Creacin_de_Mdulos_y_Pginas_8"></a>Creación de Módulos y Páginas</h2>
-<p class="has-line-data" data-line-start="10" data-line-end="11">Lo primero que debemos hacer es crear una carpeta que la llamaremos pages que contendrá las siguientes paginas:</p>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>First Steps (I)</title><style></style></head><body id="preview">
+  <h1 class="code-line" data-line-start=0 data-line-end=1><a id="Introduccin_0"></a>Introduction</h1>
+  <p class="has-line-data" data-line-start="2" data-line-end="3">This is a tutorial regarding Server Side Rendering (SSR) in which through several articles I will try to cover all aspects of the technology, specifically with the implementation of Angular Universal. You can access the different publications in the following links:</p>
+  <ul class="ml-5 pl-5">
+    <li class="has-line-data" data-line-start="12" data-line-end="13"><a href="blog/1" class="indigo">First Steps (I)</a></li>
+    <li class="has-line-data" data-line-start="13" data-line-end="14"><a href="blog/2" class="indigo">Improving Performance (II)</a></li>
+    <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/3" class="indigo">Lazy Loading (III)</a></li>
+    <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/4" class="indigo">Prerendering and SS and Browser Detection (IV)</a></li>
+    <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/4" class="indigo">Working with SEO tags (V)</a></li>
+  </ul>
+<p class="has-line-data" data-line-start="2" data-line-end="3">This is the third post of the Angular Universal mini tutorial. In the previous posts, besides dealing with the implementation in a new project, we took care of showing the main problems that you will have when you start working on the server side and how to solve them. In this post and the next one, we will focus on 2 sections that need their own particular post. Particularly now we will see what Lazy Loading is and why we should use it in SSR.</p>
+<p class="has-line-data" data-line-start="4" data-line-end="5">In simple terms, <strong>lazy loading</strong>, which means asynchronous or deferred or lazy loading, is a design pattern used to increase the loading speed of an application and consists of delaying the initialization of some components or objects until the moment of their use.</p>
+<p class="has-line-data" data-line-start="6" data-line-end="7">In the previous article we saw that it is very important to optimize the initial loading process of the SPA application and this is where Lazy loading comes in. To demonstrate it, the first thing we must include are different pages, since it is the most common way to implement lazy loading in Angular and it comes hand in hand with the implementation of <strong>Routing</strong>.</p>
+<h2 class="code-line" data-line-start=8 data-line-end=9 ><a id="Creacin_de_Mdulos_y_Pginas_8"></a>Modules and Pages Creations</h2>
+<p class="has-line-data" data-line-start="10" data-line-end="11">The first thing we must do is to create a folder that we will call pages that will contain the following pages:</p>
 <ul class="ml-5 pl-5">
 <li class="has-line-data" data-line-start="12" data-line-end="13">Home</li>
 <li class="has-line-data" data-line-start="13" data-line-end="14">Contact</li>
 <li class="has-line-data" data-line-start="14" data-line-end="16">About</li>
 </ul>
-<p class="has-line-data" data-line-start="16" data-line-end="17">Pero antes de ello necesitamos crear un módulo para cada una de las páginas. Un módulo de Angular, es un conjunto de código dedicado a un ámbito concreto de la aplicación, o una funcionalidad específica, lo que nos permite poder separar y agrupar el código según nuestra conveniencia y en base al criterio que necesitemos.</p>
-<p class="has-line-data" data-line-start="18" data-line-end="19">En nuestro caso queremos separa cada página, para que solamente se cargue la pagina que necesitemos al momento de iniciar el sitio, pero no el resto.</p>
-<p class="has-line-data" data-line-start="20" data-line-end="21">Crearemos un modulo para paga pagina de la siguiente manera:</p>
+<p class="has-line-data" data-line-start="16" data-line-end="17">But before that we need to create a module for each of the pages. An Angular module is a set of code dedicated to a specific area of the application, or a specific functionality, which allows us to separate and group the code according to our convenience and based on the criteria we need.</p>
+<p class="has-line-data" data-line-start="18" data-line-end="19">In our case we want to separate each page, so that only the page we need to load when we start the site, but not the rest.</p>
+<p class="has-line-data" data-line-start="20" data-line-end="21">We will create a module for pay page as follows:</p>
 <pre><code class="has-line-data" data-line-start="23" data-line-end="27" class="language-sh">ng g module pages/home –routing
 ng g module pages/contact –routing
 ng g module pages/about –routing
 </code></pre>
-<p class="has-line-data" data-line-start="28" data-line-end="29">En terminos generales:</p>
+<p class="has-line-data" data-line-start="28" data-line-end="29">In general terms:</p>
 <pre><code class="has-line-data" data-line-start="31" data-line-end="33" class="language-sh">ng g module pages/[nombre_pagina] –routing
 </code></pre>
-<p class="has-line-data" data-line-start="34" data-line-end="35">Veremos que nos creará dos archivos de módulo dentro de cada carpeta, uno relacionado al routing y el otro de manera global para la pagina.</p>
-<p class="has-line-data" data-line-start="36" data-line-end="37">Luego en para cada carpeta crearemos las paginas, para ello haremos:</p>
+<p class="has-line-data" data-line-start="34" data-line-end="35">We will see that it will create two module files inside each folder, one related to the routing and the other one globally for the page.</p>
+<p class="has-line-data" data-line-start="36" data-line-end="37">Then in each folder we will create the pages, for this we will do:</p>
 <pre><code class="has-line-data" data-line-start="39" data-line-end="43" class="language-sh">ng g c pages/home
 ng g c pages/contact
 ng g c pages/about
 </code></pre>
-<p class="has-line-data" data-line-start="44" data-line-end="45">En terminos generales:</p>
+<p class="has-line-data" data-line-start="44" data-line-end="45">In general terms:</p>
 <pre><code class="has-line-data" data-line-start="47" data-line-end="49" class="language-sh">ng g c pages/[nombre_pagina]
 </code></pre>
-<p class="has-line-data" data-line-start="50" data-line-end="51">Lo siguiente que debemos hacer es cambiar el contenido del html que se encuentra en app.component.html</p>
-<p class="has-line-data" data-line-start="52" data-line-end="53">Agregaremos el siguiente Html:</p>
+<p class="has-line-data" data-line-start="50" data-line-end="51">The next thing to do is to change the content of the html found in app.component.html</p>
+<p class="has-line-data" data-line-start="52" data-line-end="53">We will add the following Html:</p>
 <pre><code class="has-line-data" data-line-start="55" data-line-end="69" class="language-sh">&lt;!DOCTYPE html&gt;
 &lt;html lang=<span class="hljs-string">"en"</span>&gt;
 &lt;head&gt;
@@ -52,12 +53,12 @@ ng g c pages/about
 &lt;/body&gt;
 &lt;/html&gt;
 </code></pre>
-<h2 class="code-line" data-line-start=70 data-line-end=71 ><a id="Agregando_la_Navbar_70"></a>Agregando la Navbar</h2>
-<p class="has-line-data" data-line-start="72" data-line-end="73">Basicamente agregamos un Html vacio en donde dejaremos el router-outlet que es donde se renderizarán las páginas dentro de nuestra app Spa.</p>
-<p class="has-line-data" data-line-start="74" data-line-end="75">Vamos a agregar Bootstrap para crear la Navbar lo más rapidamente posible y que se vea aceptable a nuestros ojos.  Lo primero que debemos instalar es Popper, que es una dependencia de Bootstrap. Lo haremos con el siguiente comando en terminal:</p>
+<h2 class="code-line" data-line-start=70 data-line-end=71 ><a id="Agregando_la_Navbar_70"></a>Adding the Navbar</h2>
+<p class="has-line-data" data-line-start="72" data-line-end="73">Basically we add an empty Html where we will leave the router-outlet which is where the pages inside our Spa app will be rendered.</p>
+<p class="has-line-data" data-line-start="74" data-line-end="75">We are going to add Bootstrap to create the Navbar as quickly as possible and that it looks acceptable to our eyes.  The first thing we must install is Popper, which is a dependency of Bootstrap. We will do it with the following command in terminal:</p>
 <pre><code class="has-line-data" data-line-start="77" data-line-end="79" class="language-sh"> npm install bootstrap jquery @popperjs/core
 </code></pre>
-<p class="has-line-data" data-line-start="80" data-line-end="81">Luego, en el archivo angular.json, deberás poner las siguientes instrucciones en los objetos “styles” y “scripts”:</p>
+<p class="has-line-data" data-line-start="80" data-line-end="81">Then, in the angular.json file, you must put the following instructions in the "styles" and "scripts" objects:</p>
 <pre><code class="has-line-data" data-line-start="83" data-line-end="95" class="language-sh">           <span class="hljs-string">"styles"</span>: [
              …
               <span class="hljs-string">"node_modules/bootstrap/dist/css/bootstrap.min.css"</span>,
@@ -70,9 +71,9 @@ ng g c pages/about
               <span class="hljs-string">"node_modules/bootstrap/dist/js/bootstrap.min.js"</span>
             ]
 </code></pre>
-<p class="has-line-data" data-line-start="96" data-line-end="98">Con esto tendríamos instalado bootstrap.<br>
-Ahora lo que haremos es crear una Navbar de bootstrap en el archivo app.component.html</p>
-<p class="has-line-data" data-line-start="99" data-line-end="100">vamos a reemplazar   <code>&lt;p&gt;Angular Universal&lt;/p&gt;</code> con lo siguiente:</p>
+<p class="has-line-data" data-line-start="96" data-line-end="98">With this we would have bootstrap installed.<br>
+Now we will create a bootstrap Navbar in the app.component.html file.</p>
+<p class="has-line-data" data-line-start="99" data-line-end="100">let's replace <code>&lt;p&gt;Angular Universal&lt;/p&gt;</code> with the following:</p>
 <pre><code class="has-line-data" data-line-start="102" data-line-end="124" class="language-sh"> &lt;nav class=<span class="hljs-string">"navbar navbar-expand-lg navbar-light bg-light"</span>&gt;
     &lt;div class=<span class="hljs-string">"container-fluid"</span>&gt;
       &lt;a class=<span class="hljs-string">"navbar-brand"</span> href=<span class="hljs-string">"#"</span>&gt;Angular Universal&lt;/a&gt;
@@ -96,7 +97,7 @@ Ahora lo que haremos es crear una Navbar de bootstrap en el archivo app.componen
   &lt;/nav&gt;
 </code></pre>
 <h2 class="code-line" data-line-start=124 data-line-end=125 ><a id="Routing_124"></a>Routing</h2>
-<p class="has-line-data" data-line-start="126" data-line-end="127">En el archivo app-routing.module.ts vamos a comenzar a agregar nuestras rutas. Como verán en el archivo hay una constante “routes” que es un array vacío. Lo vamos a transformar en:</p>
+<p class="has-line-data" data-line-start="126" data-line-end="127">In the app-routing.module.ts file we are going to start adding our routes. As you will see in the file there is a constant "routes" which is an empty array. We are going to transform it into:</p>
 <pre><code class="has-line-data" data-line-start="129" data-line-end="136" class="language-sh">const routes: Routes = [
  { path: <span class="hljs-string">'home'</span>, component: HomeComponent },
  { path: <span class="hljs-string">'about'</span>, component: AboutComponent },
@@ -104,7 +105,7 @@ Ahora lo que haremos es crear una Navbar de bootstrap en el archivo app.componen
  { path: <span class="hljs-string">'**'</span>, component: HomeComponent }
 ];
 </code></pre>
-<p class="has-line-data" data-line-start="137" data-line-end="138">Luego los links serán reemplazados de la siguiente manera:</p>
+<p class="has-line-data" data-line-start="137" data-line-end="138">Then the links will be replaced as follows:</p>
 <pre><code class="has-line-data" data-line-start="140" data-line-end="162" class="language-sh"> &lt;nav class=<span class="hljs-string">"navbar navbar-expand-lg navbar-light bg-light"</span>&gt;
    &lt;div class=<span class="hljs-string">"container-fluid"</span>&gt;
      &lt;a class=<span class="hljs-string">"navbar-brand"</span> routerLink=<span class="hljs-string">"/"</span>&gt;Angular Universal&lt;/a&gt;
@@ -128,15 +129,15 @@ Ahora lo que haremos es crear una Navbar de bootstrap en el archivo app.componen
  &lt;/nav&gt;
 </code></pre>
 <p class="has-line-data" data-line-start="163" data-line-end="166">Observen que en las rutas a cada página hay modificaciones, pero también lo hay en el link<br>
-que contiene Angular Universal que redirecciona al root del sitio.<br>
-Si probamos la aplicación el Routing esta funcionando y podemos ver el contenido de cada pagina.</p>
-<h2 class="code-line" data-line-start=167 data-line-end=168 ><a id="Aplicando_Lazy_Loading_167"></a>Aplicando Lazy Loading</h2>
-<p class="has-line-data" data-line-start="169" data-line-end="170">Una de las razones por la que construimos aplicaciones Angular con Lazu Loading tiene que ver con la modularización de codigo en bloques cohesivos. Gracias a esto el bundle de nuestra aplicación puede dividirse en trozos o chunks más pequeños que representan el codigo de cada módulo.</p>
-<p class="has-line-data" data-line-start="171" data-line-end="172">Comencemos modificando los archivos <strong>home-routing.module.ts</strong>, <strong>contact-routing.module.ts</strong> y <strong>about-routing.module.ts</strong>.</p>
-<p class="has-line-data" data-line-start="173" data-line-end="174">En los 3 casos tendremos la variable:</p>
+containing Angular Universal that redirects to the site root.<br>
+If we test the application the Routing is working and we can see the content of each page.</p>
+<h2 class="code-line" data-line-start=167 data-line-end=168 ><a id="Aplicando_Lazy_Loading_167"></a>Applying Lazy Loading</h2>
+<p class="has-line-data" data-line-start="169" data-line-end="170">One of the reasons why we build Angular applications with Lazu Loading has to do with the modularization of code into cohesive blocks. Thanks to this the bundle of our application can be divided into smaller chunks that represent the code of each module.</p>
+<p class="has-line-data" data-line-start="171" data-line-end="172">Let's start by modifying the files <strong>home-routing.module.ts</strong>, <strong>contact-routing.module.ts</strong> and <strong>about-routing.module.ts</strong>.</p>
+<p class="has-line-data" data-line-start="173" data-line-end="174">In all 3 cases we will have the variable:</p>
 <pre><code class="has-line-data" data-line-start="176" data-line-end="178" class="language-sh">const routes: Routes = [];
 </code></pre>
-<p class="has-line-data" data-line-start="179" data-line-end="180">Debemos agregar el routing en dicho archivo. Lo haremos para Home, pero en el resto es de la misma manera agregando el Componente correspondiente para la página.</p>
+<p class="has-line-data" data-line-start="179" data-line-end="180">We must add the routing in that file. We will do it for Home, but in the rest it is the same way adding the corresponding Component for the page.</p>
 <pre><code class="has-line-data" data-line-start="182" data-line-end="189" class="language-sh">const routes: Routes = [
  {
    path: <span class="hljs-string">''</span>,
@@ -144,7 +145,7 @@ Si probamos la aplicación el Routing esta funcionando y podemos ver el contenid
  },
 ];
 </code></pre>
-<p class="has-line-data" data-line-start="190" data-line-end="191">Una vez hecho el cambio, modificaremos la constante routes del archivo app-routing.module.ts de la siguiente manera:</p>
+<p class="has-line-data" data-line-start="190" data-line-end="191">Once the change is made, we will modify the routes constant of the app-routing.module.ts file as follows:</p>
 <pre><code class="has-line-data" data-line-start="193" data-line-end="208" class="language-sh">const routes: Routes = [
  { path: <span class="hljs-string">'home'</span>,
    loadChildren: () =&gt; import(<span class="hljs-string">'./pages/home/home.module'</span>).then((m) =&gt; m.HomeModule),
@@ -160,11 +161,12 @@ Si probamos la aplicación el Routing esta funcionando y podemos ver el contenid
  { path: <span class="hljs-string">'**'</span>, redirectTo: <span class="hljs-string">'home'</span>, pathMatch: <span class="hljs-string">'full'</span> }
 ];
 </code></pre>
-<p class="has-line-data" data-line-start="209" data-line-end="210">Ya hemos hecho las modificaciones para Lazy Loading. Veremos como se configura el bundle para ello hacemos el build de la aplicacion:</p>
+<p class="has-line-data" data-line-start="209" data-line-end="210">We have already made the modifications for Lazy Loading. We will see how to configure the bundle for it we make the build of the application:</p>
 <p class="has-line-data" data-line-start="211" data-line-end="212">npm run build:ssr</p>
-<p class="has-line-data" data-line-start="213" data-line-end="214">Si vemos los bundles que se generan en el lado del Server, tendremos 3 modulos en archivos .js separados correspondientes a las 3 páginas que realizamos:</p>
+<p class="has-line-data" data-line-start="213" data-line-end="214">If we look at the bundles that are generated on the Server side, we will have 3 modules in separate .js files corresponding to the 3 pages we made:</p>
 <img class="mt-5 mb-5" src="./../../../assets/images/blog/3/lazy-loading-chunks.png">
-<h2 class="code-line" data-line-start=215 data-line-end=216 ><a id="Conclusin_215"></a>Conclusión</h2>
-<p class="has-line-data" data-line-start="217" data-line-end="218">Los nuevos trozos o chunks creados promedian más de 1.20 KB que para el ejemplo del post no es significativo, pero sí lo será cuando cada módulo contenga muchos más componentes y librerías adentro.</p>
+<h2 class="code-line" data-line-start=215 data-line-end=216 ><a id="Conclusin_215"></a>Conclusion</h2>
+<p class="has-line-data" data-line-start="217" data-line-end="218">The new chunks created average more than 1.20 KB which for the example of the post is not significant, but it will be when each module contains many more components and libraries inside.</p>
 <p class="has-line-data" data-line-start="120" data-line-end="121">And don't forget if you like or find this tutorial useful, leave me a comment, a recommendation or a message on Linkedin. It is always rewarding to have feedback on what you do.</p>
 <p class="has-line-data" data-line-start="120" data-line-end="121">See you in the next article!</p>
+</body></html>

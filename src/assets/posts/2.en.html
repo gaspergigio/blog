@@ -1,24 +1,25 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Mejorando el Rendimiento (II)</title><style></style></head><body id="preview"></body>
-<h1 class="code-line" data-line-start=0 data-line-end=1 ><a id="Angular_Universal__Server_Side_Rendering_SSR__Mejorando_el_Rendimiento_II_0"></a>Introducción</h1>
-<p class="has-line-data" data-line-start="2" data-line-end="3">Este es un tutorial referido a Server Side Rendering (SSR) en el cual mediante varios artículos trataremos de cubrir todos los aspectos de la tecnología, específicamente con la implementación de Angular Universal. Puedes acceder a las diferentes publicaciones siguiente los siguientes enlaces:</p>
-<ul class="ml-5 pl-5">
-  <li class="has-line-data" data-line-start="12" data-line-end="13"><a href="blog/1" class="indigo">Primeros Pasos (I)</a></li>
-  <li class="has-line-data" data-line-start="13" data-line-end="14"><a href="blog/2" class="indigo">Mejorando el Rendimiento (II)</a></li>
-  <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/3" class="indigo">Lazy Loading (III)</a></li>
-  <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/4" class="indigo">Prerendering and SS and Browser Detection (IV)</a></li>
-</ul>
-<p class="has-line-data" data-line-start="2" data-line-end="4">Este es el segundo post relacionado a Angular Universal. Lo que vamos a tratar en este post y en los que seguirán relacionados al tema, tiene que ver con los diferentes problemas que nos podemos encontrar cuando ya estamos trabajando en un proyecto SSR.</p>
-<h2 class="code-line" data-line-start=5 data-line-end=6 ><a id="TTFB_Qu_es_5"></a>TTFB ¿Qué es?</h2>
-<p class="has-line-data" data-line-start="7" data-line-end="8">Se puede llamar TTFB al tiempo en que demora la pagina en hacer rendering o llamado de otra manera, el tiempo del primer byte o “Time to First Byte”. Si utilizamos Chrome y abrimos las herramientas de desarrollador, podemos ver la diferencia entre los proyectos ejecutados con ng serve, con respecto a los proyectos de SSR.</p>
-<p class="has-line-data" data-line-start="9" data-line-end="10">Primero miremos el tiempo para SSR:</p>
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>First Steps (I)</title><style></style></head><body id="preview">
+  <h1 class="code-line" data-line-start=0 data-line-end=1><a id="Introduccin_0"></a>Introduction</h1>
+  <p class="has-line-data" data-line-start="2" data-line-end="3">This is a tutorial regarding Server Side Rendering (SSR) in which through several articles I will try to cover all aspects of the technology, specifically with the implementation of Angular Universal. You can access the different publications in the following links:</p>
+  <ul class="ml-5 pl-5">
+    <li class="has-line-data" data-line-start="12" data-line-end="13"><a href="blog/1" class="indigo">First Steps (I)</a></li>
+    <li class="has-line-data" data-line-start="13" data-line-end="14"><a href="blog/2" class="indigo">Improving Performance (II)</a></li>
+    <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/3" class="indigo">Lazy Loading (III)</a></li>
+    <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/4" class="indigo">Prerendering and SS and Browser Detection (IV)</a></li>
+    <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/4" class="indigo">Working with SEO tags (V)</a></li>
+  </ul>
+<p class="has-line-data" data-line-start="2" data-line-end="4">This is the second post related to Angular Universal. What we are going to discuss in this post and in the following ones related to the topic, has to do with the different problems that we can find when we are already working on a SSR project.</p>
+<h2 class="code-line" data-line-start=5 data-line-end=6 ><a id="TTFB_Qu_es_5"></a>TTFB What is it?</h2>
+<p class="has-line-data" data-line-start="7" data-line-end="8">You can call TTFB the time it takes for the page to render or called in another way, the time of the first byte or "Time to First Byte". If we use Chrome and open the developer tools, we can see the difference between projects executed with ng serve, with respect to SSR projects.</p>
+<p class="has-line-data" data-line-start="9" data-line-end="10">First let's look at the time for SSR:</p>
 <img src="./../../../assets/images/blog/2/SSR-time.png">
-<p class="has-line-data" data-line-start="11" data-line-end="12">En el popup que se levanta al estar sobre localhost, podemos ver que casi la totalidad del tiempo de demora corresponde al TTFB.</p>
-<p class="has-line-data" data-line-start="13" data-line-end="14">Luego miremos lo que aparece ejecutando el comando ng Serve:</p>
+<p class="has-line-data" data-line-start="11" data-line-end="12">In the popup that appears when we are on localhost, we can see that almost all of the delay time corresponds to the TTFB.</p>
+<p class="has-line-data" data-line-start="13" data-line-end="14">Then let's look at what appears by running the command ng Serve:</p>
 <img src="./../../../assets/images/blog/2/ng-serve.png">
-<p class="has-line-data" data-line-start="15" data-line-end="16">En principio podemos notar que hay mayor demora en general, pero sobre todo localhost, tiene una diferencia notable. La mayor demora se refleja porque la página se debe renderizar en el servidor y luego se envía al browser renderizada.</p>
-<p class="has-line-data" data-line-start="17" data-line-end="18">Vale destacar que 168 milisegundos es una cantidad de segundos de espera que para el usuario es imperceptible, pero ¿qué pasa si tenemos 10 segundos de espera o 20 segundos? No podemos tener esa espera en ninguna página en el ámbito profesional, simplemente no refleja ni calidad ni un buen desarrollo. ¿Cuales pueden ser las causas de tener esa cantidad de segundos de TTFB? Las causas pueden ser variadas, y  las enumeramos a continuación:</p>
+<p class="has-line-data" data-line-start="15" data-line-end="16">In principle we can notice that there is a longer delay in general, but especially localhost has a noticeable difference. The longer delay is reflected because the page must be rendered on the server and then sent to the browser rendered..</p>
+<p class="has-line-data" data-line-start="17" data-line-end="18">It is worth noting that 168 milliseconds is an amount of seconds of waiting that for the user is imperceptible, but what happens if we have 10 seconds of waiting or 20 seconds? We can not have that wait on any page in the professional field, it simply does not reflect neither quality nor a good development. What can be the causes of having that amount of seconds of TTFB? The causes can be varied, and we list them below:</p>
 <h2 class="code-line" data-line-start=19 data-line-end=20 ><a id="Timeouts_19"></a>Timeouts</h2>
-<p class="has-line-data" data-line-start="21" data-line-end="22">Si agregamos el siguiente codigo en el OnInit del archivo app.component.ts veremos que pasa:</p>
+<p class="has-line-data" data-line-start="21" data-line-end="22">If we add the following code in the OnInit of the app.component.ts file we will see what happens:</p>
 <pre><code class="has-line-data" data-line-start="24" data-line-end="33" class="language-sh"><span class="hljs-built_in">export</span> class AppComponent implements OnInit {
  title = <span class="hljs-string">'testUniversal'</span>;
  ngOnInit(): void {
@@ -28,32 +29,32 @@
  }
  }
 </code></pre>
-<p class="has-line-data" data-line-start="34" data-line-end="35">Si ejecutamos el comando ng Serve, se renderizará la página con la propiedad title con valor testUniversal y luego de 30 segundos, cambiará.</p>
-<p class="has-line-data" data-line-start="36" data-line-end="37">¿Que pasa en SSR? Lo ejecutamos y tenemos el siguiente resultado:</p>
+<p class="has-line-data" data-line-start="34" data-line-end="35">If we execute the command ng Serve, the page will be rendered with the title property with value testUniversal and after 30 seconds, it will change to.</p>
+<p class="has-line-data" data-line-start="36" data-line-end="37">What happens in SSR? We run it and we have the following result:</p>
 <img src="./../../../assets/images/blog/2/SSR-timeout.png">
-<p class="has-line-data" data-line-start="38" data-line-end="40">La página no se renderiza hasta pasados los 30 segundos.<br>
-Esto nos indica que debemos cuidar de no agregar timeouts en los constructores y en los ngOnInit de la página porque tendrán una repercusión en el TTFB. El usuario simplemente no puede esperar ese tiempo para ver algo en el Browser.</p>
-<h2 class="code-line" data-line-start=41 data-line-end=42 ><a id="Promesas_41"></a>Promesas</h2>
-<p class="has-line-data" data-line-start="43" data-line-end="45">De la misma manera en que pueden existir demoras con el settimeout, podemos tener demoras al realizar una tarea compleja con una función mediante promesas. SSR esperará que la promesa devuelva un resultado antes de renderizar.<br>
-Los casos más comunes son las peticiones HTTP que funcionan de esta manera tanto para obtener información desde un backend, como así también obtener un recurso (imagen, documento, etc).</p>
-<h2 class="code-line" data-line-start=46 data-line-end=47 ><a id="Utilizar_Compression_46"></a>Utilizar Compression</h2>
-<p class="has-line-data" data-line-start="48" data-line-end="49">La compresión es un proceso que puede disminuir en gran medida el tamaño del body del response de la página renderizada desde el servidor y trae como consecuencia aumentar la velocidad de una aplicación web. Para la compresión gzip, puedes utilizar el middleware de compresión en tu aplicación Express.</p>
-<p class="has-line-data" data-line-start="50" data-line-end="51">Para realizar estos se trabaja sobre el archivo server.ts con los siguientes cambios:</p>
-<p class="has-line-data" data-line-start="52" data-line-end="53">Agregamos en los imports:</p>
+<p class="has-line-data" data-line-start="38" data-line-end="40">The page is not rendered until after 30 seconds.<br>
+  This tells us that we must be careful not to add timeouts in the constructors and in the ngOnInit of the page because they will have an impact on the TTFB. The user simply cannot wait that long to see something in the Browser.</p>
+<h2 class="code-line" data-line-start=41 data-line-end=42 ><a id="Promesas_41"></a>Promises</h2>
+<p class="has-line-data" data-line-start="43" data-line-end="45">Just as there can be delays with settimeout, we can have delays when performing a complex task with a function using promises. SSR will wait for the promise to return a result before rendering.<br>
+  The most common cases are HTTP requests that work in this way both to obtain information from a backend, as well as to obtain a resource (image, document, etc.).</p>
+<h2 class="code-line" data-line-start=46 data-line-end=47 ><a id="Utilizar_Compression_46"></a>Use Compression</h2>
+<p class="has-line-data" data-line-start="48" data-line-end="49">Compression is a process that can greatly decrease the size of the response body of the page rendered from the server and results in an increase in the speed of a web application. For gzip compression, you can use the compression middleware in your Express application.</p>
+<p class="has-line-data" data-line-start="50" data-line-end="51">To do this we work on the server.ts file with the following changes:</p>
+<p class="has-line-data" data-line-start="52" data-line-end="53">We add in the imports:</p>
 <pre><code class="has-line-data" data-line-start="55" data-line-end="57" class="language-sh">import * as compression from <span class="hljs-string">'compression'</span>;
 </code></pre>
-<p class="has-line-data" data-line-start="58" data-line-end="59">Puede que angular nos tire algun error al agregar el import. En ese caso deberemos agregar el tipo mediante el siguiente comando npm:</p>
+<p class="has-line-data" data-line-start="58" data-line-end="59">Angular may throw us some error when adding the import. In that case we must add the type using the following npm command:</p>
 <pre><code class="has-line-data" data-line-start="61" data-line-end="63" class="language-sh">npm install --save @types/compression
 </code></pre>
-<p class="has-line-data" data-line-start="64" data-line-end="65">Luego agregamos el middleware en la función app() del rest server de Node:</p>
+<p class="has-line-data" data-line-start="64" data-line-end="65">Then we add the middleware in the app() function of the Node rest server:</p>
 <pre><code class="has-line-data" data-line-start="67" data-line-end="72" class="language-sh"><span class="hljs-built_in">export</span> <span class="hljs-keyword">function</span> app(): express.Express {
    const server = express();
    server.use(compression());
    …
 </code></pre>
-<h2 class="code-line" data-line-start=73 data-line-end=74 ><a id="Evitar_Duplicacion_de_HTTP_Calls_73"></a>Evitar Duplicacion de HTTP Calls</h2>
-<p class="has-line-data" data-line-start="75" data-line-end="76">Una de las primeras cosas que vamos a notar cuando arrancamos a trabajar con angular Universal, es que en la primera carga, tenemos duplicación de HTTP Calls. Es decir que las llamadas a las Apis para el consumo de datos se realizan por duplicado en el momento de cargar la página. Decimos que se da en la primera llamada, porque angular funciona de manera SPA, una vez cargada, el routing funciona del lado del cliente. De todos modos podemos entrar a cualquier página si tenemos la URL de la misma.</p>
-<p class="has-line-data" data-line-start="77" data-line-end="78">Para solucionarlo debemos utilizar el <strong>TransferHttpCacheModule</strong> de Angular Universal en tu app.module y <strong>ServerTransferStateModule</strong> en tu app.server.module.</p>
+<h2 class="code-line" data-line-start=73 data-line-end=74 ><a id="Evitar_Duplicacion_de_HTTP_Calls_73"></a>Avoid Duplicate HTTP Calls</h2>
+<p class="has-line-data" data-line-start="75" data-line-end="76">One of the first things we are going to notice when we start working with Angular Universal, is that in the first load, we have duplication of HTTP Calls. That is to say that the calls to the Apis for data consumption are made in duplicate at the time of loading the page. We say that it occurs in the first call, because Angular works in SPA way, once loaded, the routing works on the client side. Anyway we can enter any page if we have the URL of it.</p>
+<p class="has-line-data" data-line-start="77" data-line-end="78">To fix it we must use the Angular Universal <strong>TransferHttpCacheModule</strong> in your app.module and <strong>ServerTransferStateModule</strong> in your app.server.module.</p>
 <p class="has-line-data" data-line-start="79" data-line-end="80">app.module:</p>
 <pre><code class="has-line-data" data-line-start="81" data-line-end="90" class="language-sh">import { TransferHttpCacheModule } from <span class="hljs-string">'@nguniversal/common'</span>;
  
@@ -73,17 +74,17 @@ Los casos más comunes son las peticiones HTTP que funcionan de esta manera tant
 })
 <span class="hljs-built_in">export</span> class AppServerModule {}
 </code></pre>
-<p class="has-line-data" data-line-start="102" data-line-end="103">Al realizar este cambio, las llamadas HTTP no se duplicarán en la primera carga del sitio, sin importar a qué página se esté llamando.</p>
+<p class="has-line-data" data-line-start="102" data-line-end="103">By making this change, HTTP calls will not be duplicated on the first load of the site, no matter which page is being called.</p>
 <h2 class="code-line" data-line-start=104 data-line-end=105 ><a id="Server_Side_Cache_104"></a>Server Side Cache</h2>
-<p class="has-line-data" data-line-start="106" data-line-end="107">Una herramienta indispensable a la hora de mejorar el tiempo de carga de cada pagina, es el cache de paginas en el servidor. Para ello utilizaremos un middleware que interceptará todos los request de paginas, y verificará si ya existe en caché para devolver la pagina guardada en ver de renderizar nuevamente.</p>
-<p class="has-line-data" data-line-start="108" data-line-end="109">Primero instalaremos memory-cache, que es una lib de node para realizar esto:</p>
+<p class="has-line-data" data-line-start="106" data-line-end="107">An indispensable tool when it comes to improving the loading time of each page, is the page cache on the server. For this we will use a middleware that will intercept all page requests, and will check if it already exists in cache to return the cached page instead of rendering it again.</p>
+<p class="has-line-data" data-line-start="108" data-line-end="109">First we will install memory-cache, which is a node lib to do this:</p>
 <pre><code class="has-line-data" data-line-start="110" data-line-end="112" class="language-sh">npm install memory-cache --save
 </code></pre>
-<p class="has-line-data" data-line-start="112" data-line-end="113">Una vez instalada la libreria, la importamos en el archivo server.ts. Justo debajo de los imports declaramos una instancia de caché que utilizaremos en el middleware.</p>
+<p class="has-line-data" data-line-start="112" data-line-end="113">Once the library is installed, we import it into the server.ts file. Just below the imports we declare a cache instance that we will use in the middleware.</p>
 <pre><code class="has-line-data" data-line-start="115" data-line-end="118" class="language-sh">import * as cache from <span class="hljs-string">'memory-cache'</span>;
 const serverCache = new cache.Cache();
 </code></pre>
-<p class="has-line-data" data-line-start="119" data-line-end="120">debajo del server Express crearemos la siguiente funcion de flecha que será la implementación del middleware:</p>
+<p class="has-line-data" data-line-start="119" data-line-end="120">Under the Express server we will create the following arrow function which will be the middleware implementation:</p>
 <pre><code class="has-line-data" data-line-start="122" data-line-end="140" class="language-sh">const cacheMiddleware = (duration: number) =&gt; {
  <span class="hljs-built_in">return</span> (req: any, res: any, next: Function) =&gt; {
    <span class="hljs-built_in">let</span> key = <span class="hljs-string">'__express__'</span> + req.originalUrl || req.url;
@@ -102,20 +103,48 @@ const serverCache = new cache.Cache();
  }
 }
 </code></pre>
-<p class="has-line-data" data-line-start="141" data-line-end="142">Basicamente el middleware encapsula todo la funcionalidad de cache y funciona de maravillas. Para usarlo en cada petición lo agregamos de la siguiente manera:</p>
+<p class="has-line-data" data-line-start="141" data-line-end="142">Basically the middleware encapsulates all the cache functionality and works great. To use it in each request we add it as follows:</p>
 <pre><code class="has-line-data" data-line-start="144" data-line-end="148" class="language-sh">   server.get(<span class="hljs-string">'*'</span>, cacheMiddleware(<span class="hljs-number">300</span>), (req, res) =&gt; {
        …
     });
 </code></pre>
-<p class="has-line-data" data-line-start="149" data-line-end="150">La duración que recibe el middleware es en segundos. Los 300 corresponden a 5 minutos</p>
-<h2 class="code-line" data-line-start=151 data-line-end=152 ><a id="Otras_mejoras_151"></a>Otras mejoras</h2>
-<p class="has-line-data" data-line-start="153" data-line-end="154">Pueden seguir este post de <a href="https://hackernoon.com/angular-server-side-rendering-state-transfer-for-http-requests-wu263t3h">Hackernoon.com</a> que nos da otras 3 optimizaciones que podemos realizar en nuestro sitio en SSR para mejorar:</p>
+<p class="has-line-data" data-line-start="149" data-line-end="150">The duration received by the middleware is in seconds. The 300 corresponds to 5 minutes.</p>
+<h2 class="code-line" data-line-start=150 data-line-end=151 ><a id="Optimizaciones_en_Angularjson_y_serverts_150"></a>Optimizations in Angular.json and server.ts</h2>
+<p class="has-line-data" data-line-start="151" data-line-end="152">The following is an essential optimization related to the performance of Angular Universal. In many cases it comes by default when adding the Universal libraries, but if it is a website that we have been migrating from previous versions we will not have them.</p>
+<p class="has-line-data" data-line-start="153" data-line-end="154">We will search in the angular.json file for the node: projects --&gt; [project name] --&gt; architect --&gt; build --&gt; configurations --&gt; [environment].</p>
+<p class="has-line-data" data-line-start="155" data-line-end="156">In our example:</p>
+<ul class="ml-5 pl-5">
+<li class="has-line-data" data-line-start="156" data-line-end="157">Project Name = testUniversal</li>
+<li class="has-line-data" data-line-start="157" data-line-end="159">Environment: Can be production or test, etc.</li>
+</ul>
+<p class="has-line-data" data-line-start="159" data-line-end="160">and we add the following attributes:</p>
+<pre><code class="has-line-data" data-line-start="162" data-line-end="170" class="language-sh">                            <span class="hljs-string">"optimization"</span>: <span class="hljs-literal">true</span>,
+                            <span class="hljs-string">"outputHashing"</span>: <span class="hljs-string">"all"</span>,
+                            <span class="hljs-string">"sourceMap"</span>: <span class="hljs-literal">false</span>,
+                            <span class="hljs-string">"namedChunks"</span>: <span class="hljs-literal">false</span>,
+                            <span class="hljs-string">"extractLicenses"</span>: <span class="hljs-literal">true</span>,
+                            <span class="hljs-string">"vendorChunk"</span>: <span class="hljs-literal">false</span>,
+                            <span class="hljs-string">"buildOptimizer"</span>: <span class="hljs-literal">true</span>
+</code></pre>
+<p class="has-line-data" data-line-start="171" data-line-end="172">On the other hand in the server.ts file depending on the version of Universal generally to improve performance you can add the inlineCriticalCss setting to false when creating the rendering engine:</p>
+<pre><code class="has-line-data" data-line-start="175" data-line-end="183" class="language-sh">    server.engine(
+        <span class="hljs-string">'html'</span>,
+        ngExpressEngine({
+            bootstrap: AppServerModule,
+            inlineCriticalCss: <span class="hljs-literal">false</span>
+        })
+    );
+</code></pre>
+<p class="has-line-data" data-line-start="184" data-line-end="185">In some tests I have been able to reduce the TTFB by 50% with these configurations.</p>
+<h2 class="code-line" data-line-start=151 data-line-end=152 ><a id="Otras_mejoras_151"></a>Other improvements</h2>
+<p class="has-line-data" data-line-start="153" data-line-end="154">You can follow this post of <a href="https://hackernoon.com/angular-server-side-rendering-state-transfer-for-http-requests-wu263t3h">Hackernoon.com</a> which gives us 3 other optimizations that we can perform on our SSR site to improve it:</p>
 <ul class="ml-5 pl-5">
 <li class="has-line-data" data-line-start="154" data-line-end="155">Largest Contentful Paint (LCP)</li>
 <li class="has-line-data" data-line-start="155" data-line-end="156">First Input Delay (FID)</li>
 <li class="has-line-data" data-line-start="156" data-line-end="157">Cumulative Layout Shift (CLS)</li>
 </ul>
-<h2 class="code-line" data-line-start=159 data-line-end=160 ><a id="Conclusin_159"></a>Conclusión</h2>
-<p class="has-line-data" data-line-start="161" data-line-end="162">Hasta ahora hemos comentado las optimizaciones mas sencillas para Angular con SSR. En los siguientes artículos tocaremos temas mas complicados de aplicar que serán Lazy Loading y Pre-rendering</p>
+<h2 class="code-line" data-line-start=159 data-line-end=160 ><a id="Conclusin_159"></a>Conclusion</h2>
+<p class="has-line-data" data-line-start="161" data-line-end="162">So far we have discussed the simplest optimizations for Angular with SSR. In the following articles we will touch on more complicated topics to apply which will be Lazy Loading and Pre-rendering.</p>
 <p class="has-line-data" data-line-start="120" data-line-end="121">And don't forget if you like or find this tutorial useful, leave me a comment, a recommendation or a message on Linkedin. It is always rewarding to have feedback on what you do.</p>
 <p class="has-line-data" data-line-start="120" data-line-end="121">See you in the next article!</p>
+</body></html>

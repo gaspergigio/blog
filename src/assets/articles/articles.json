@@ -98,29 +98,38 @@
     }]
 }, {
     "id": "5",
-    "date":"2021-12-01T08:00:00",
-    "title": "Bootstrap static header",
-    "subtitle": "Using simple jumbotron-style component, create a nice Bootstrap 4 header with a background image.",
+    "date":"2022-06-29T08:00:00",
+    "title": "Server Side Rendering (SSR) - Trabajando con SEO tags (V)",
+    "subtitle": "Angular Universal",
     "author": "Alejandro Arribillaga",
     "categories": ["angular"],
-    "post": "test.html",
-    "image": "./../../../assets/images/andrew-neel-_71nlAn-2YA-unsplash.jpg",
-    "active": false,
+    "post": "5.md.html",
+    "image": "./../../../assets/images/universal_logo.png",
+    "active": true,
     "cheatsheets": [{
-        "title": "Structural Directives",
+        "title": "Cheatsheet",
         "colums":["Command", "Descripcion"],
         "list": [{
-            "title": "Titulo 1",
-            "desc": "Descripcion 1"
+            "title": "Inject SEO title",
+            "desc": "private title: Title"
         }, {
-            "title": "Titulo 2",
-            "desc": "Descripcion 2"
+            "title": "Inject SEO meta",
+            "desc": "private meta: Meta"
         }, {
-            "title": "Titulo 3",
-            "desc": "Descripcion 3"
+            "title": "Set SEO title",
+            "desc": "this.title.setTitle('Angular Title');"
         }, {
-            "title": "Titulo 4",
-            "desc": "Descripcion 4"
+            "title": "Set SEO metatag",
+            "desc": "this.meta.addTag({ name: 'description', content: 'Angular Description' });"
+        }, {
+            "title": "Set SEO property",
+            "desc": "this.meta.addTag({ property: 'og:title', content: 'Angular Title' });"
+        }, {
+            "title": "Server Base Url",
+            "desc": "const baseUrl = req.protocol + '://' + req.get('host');"
+        }, {
+            "title": "Server Full Url",
+            "desc": "baseUrl + req.originalUrl;"
         }]
     }]
 }, {

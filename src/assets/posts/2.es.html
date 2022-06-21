@@ -6,6 +6,7 @@
   <li class="has-line-data" data-line-start="13" data-line-end="14"><a href="blog/2" class="indigo">Mejorando el Rendimiento (II)</a></li>
   <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/3" class="indigo">Lazy Loading (III)</a></li>
   <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/4" class="indigo">Prerendering and SS and Browser Detection (IV)</a></li>
+  <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/5" class="indigo">Trabajando con SEO tags (V)</a></li>
 </ul>
 <p class="has-line-data" data-line-start="2" data-line-end="4">Este es el segundo post relacionado a Angular Universal. Lo que vamos a tratar en este post y en los que seguirán relacionados al tema, tiene que ver con los diferentes problemas que nos podemos encontrar cuando ya estamos trabajando en un proyecto SSR.</p>
 <h2 class="code-line" data-line-start=5 data-line-end=6 ><a id="TTFB_Qu_es_5"></a>TTFB ¿Qué es?</h2>
@@ -108,6 +109,33 @@ const serverCache = new cache.Cache();
     });
 </code></pre>
 <p class="has-line-data" data-line-start="149" data-line-end="150">La duración que recibe el middleware es en segundos. Los 300 corresponden a 5 minutos</p>
+<h2 class="code-line" data-line-start=150 data-line-end=151 ><a id="Optimizaciones_en_Angularjson_y_serverts_150"></a>Optimizaciones en Angular.json y server.ts</h2>
+<p class="has-line-data" data-line-start="151" data-line-end="152">La siguiente es una optimización indispensable relacionada al rendimiento de Angular Universal. En muchos casos viene por defecto al agregar las librerías de Universal, pero si es un sitio web que vinimos migrando desde versiones anteriores no las tendremos.</p>
+<p class="has-line-data" data-line-start="153" data-line-end="154">Buscaremos en el archivo angular.json el nodo: projects --&gt; [nombre del proyecto] --&gt; architect --&gt; build --&gt; configurations --&gt; [environment].</p>
+<p class="has-line-data" data-line-start="155" data-line-end="156">En donde en nuestro ejemplo:</p>
+<ul class="ml-5 pl-5">
+<li class="has-line-data" data-line-start="156" data-line-end="157">Nombre de Proyecto = testUniversal</li>
+<li class="has-line-data" data-line-start="157" data-line-end="159">Environment: Puede ser production o test, etc</li>
+</ul>
+<p class="has-line-data" data-line-start="159" data-line-end="160">y agregaremos los siguientes atributos:</p>
+<pre><code class="has-line-data" data-line-start="162" data-line-end="170" class="language-sh">                            <span class="hljs-string">"optimization"</span>: <span class="hljs-literal">true</span>,
+                            <span class="hljs-string">"outputHashing"</span>: <span class="hljs-string">"all"</span>,
+                            <span class="hljs-string">"sourceMap"</span>: <span class="hljs-literal">false</span>,
+                            <span class="hljs-string">"namedChunks"</span>: <span class="hljs-literal">false</span>,
+                            <span class="hljs-string">"extractLicenses"</span>: <span class="hljs-literal">true</span>,
+                            <span class="hljs-string">"vendorChunk"</span>: <span class="hljs-literal">false</span>,
+                            <span class="hljs-string">"buildOptimizer"</span>: <span class="hljs-literal">true</span>
+</code></pre>
+<p class="has-line-data" data-line-start="171" data-line-end="172">Por otro lado en el archivo server.ts segun la versión de Universal generalmente para mejorar la performance se puede agregar la configuración inlineCriticalCss en false al momento de crear el motor de renderizado:</p>
+<pre><code class="has-line-data" data-line-start="175" data-line-end="183" class="language-sh">    server.engine(
+        <span class="hljs-string">'html'</span>,
+        ngExpressEngine({
+            bootstrap: AppServerModule,
+            inlineCriticalCss: <span class="hljs-literal">false</span>
+        })
+    );
+</code></pre>
+<p class="has-line-data" data-line-start="184" data-line-end="185">En algunas pruebas realizadas he podido reducir el TTFB en un 50% con estas configuraciones.</p>
 <h2 class="code-line" data-line-start=151 data-line-end=152 ><a id="Otras_mejoras_151"></a>Otras mejoras</h2>
 <p class="has-line-data" data-line-start="153" data-line-end="154">Pueden seguir este post de <a href="https://hackernoon.com/angular-server-side-rendering-state-transfer-for-http-requests-wu263t3h">Hackernoon.com</a> que nos da otras 3 optimizaciones que podemos realizar en nuestro sitio en SSR para mejorar:</p>
 <ul class="ml-5 pl-5">
@@ -119,3 +147,4 @@ const serverCache = new cache.Cache();
 <p class="has-line-data" data-line-start="161" data-line-end="162">Hasta ahora hemos comentado las optimizaciones mas sencillas para Angular con SSR. En los siguientes artículos tocaremos temas mas complicados de aplicar que serán Lazy Loading y Pre-rendering</p>
 <p class="has-line-data" data-line-start="120" data-line-end="121">Y no te olvides si te gusta o te resulta util este tutorial dejarme un comentario, una recomendación o un mensaje en Linkedin. Siempre es reconfortante tener un feedback sobre lo que uno hace.</p>
 <p class="has-line-data" data-line-start="120" data-line-end="121">Hasta el próximo artítulo!</p>
+</body></html>

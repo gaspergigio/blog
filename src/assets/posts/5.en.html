@@ -1,0 +1,91 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>First Steps (I)</title><style></style></head><body id="preview">
+    <h1 class="code-line" data-line-start=0 data-line-end=1><a id="Introduccin_0"></a>Introduction</h1>
+    <p class="has-line-data" data-line-start="2" data-line-end="3">This is a tutorial regarding Server Side Rendering (SSR) in which through several articles I will try to cover all aspects of the technology, specifically with the implementation of Angular Universal. You can access the different publications in the following links:</p>
+    <ul class="ml-5 pl-5">
+      <li class="has-line-data" data-line-start="12" data-line-end="13"><a href="blog/1" class="indigo">First Steps (I)</a></li>
+      <li class="has-line-data" data-line-start="13" data-line-end="14"><a href="blog/2" class="indigo">Improving Performance (II)</a></li>
+      <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/3" class="indigo">Lazy Loading (III)</a></li>
+      <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/4" class="indigo">Prerendering and SS and Browser Detection (IV)</a></li>
+      <li class="has-line-data" data-line-start="14" data-line-end="16"><a href="blog/4" class="indigo">Working with SEO tags (V)</a></li>
+    </ul>
+<p class="has-line-data" data-line-start="2" data-line-end="3">This is the fifth and last post of this series related to Angular Universal, if you were not able to read the previous post I strongly recommend you to do it because you will find a lot of information about Server Side rendering.</p>
+<p class="has-line-data" data-line-start="4" data-line-end="5">We have talked in previous articles that the reason to implement SSR is to have the ability to improve the SEO of our app. But in reality we have said little about SEO improvements. Surely the reader will have reasoned that with SSR the SEO at the structure level is completely readable by search engine crawlers as well as social network crawlers, but we are forgetting something. The MetaTags.</p>
+<h2 class="code-line" data-line-start=6 data-line-end=7 ><a id="Objetos_Meta_y_Title_6"></a>Meta and Title objects</h2>
+<p class="has-line-data" data-line-start="8" data-line-end="9">The Title and Meta objects are used to modify from the controller from an Angular site the values that will have the meta tags and the title of the application. Its implementation is simple and for this we will use the home page of our example:</p>
+<p class="has-line-data" data-line-start="10" data-line-end="11">The first thing we will do is to include them in our constructor:</p>
+<pre><code class="has-line-data" data-line-start="13" data-line-end="17" class="language-sh">   constructor(
+       private title: Title,
+       private meta: Meta,
+</code></pre>
+<p class="has-line-data" data-line-start="18" data-line-end="19">Both objects are imported from:</p>
+<pre><code class="has-line-data" data-line-start="21" data-line-end="23" class="language-sh">import { Meta, Title } from <span class="hljs-string">'@angular/platform-browser'</span>;
+</code></pre>
+<p class="has-line-data" data-line-start="24" data-line-end="25">We will add in our OnInit the following example lines of how to set the title and meta:</p>
+<pre><code class="has-line-data" data-line-start="27" data-line-end="35" class="language-sh"> ngOnInit(): void {
+   this.title.setTitle(<span class="hljs-string">"Angular Title"</span>);
+   this.meta.addTag({ name: <span class="hljs-string">'description'</span>, content: <span class="hljs-string">'Angular Description'</span> });
+   this.meta.addTag({ property: <span class="hljs-string">'og:title'</span>, content: <span class="hljs-string">'Angular Title'</span> });
+   this.meta.addTag({ property: <span class="hljs-string">'og:description'</span>, content: <span class="hljs-string">'Angular Description'</span> });
+   this.meta.addTag({ property: <span class="hljs-string">'og:url'</span>, content: <span class="hljs-string">'http://localhost:4200/blog/5'</span> });
+   this.meta.addTag({ property: <span class="hljs-string">'og:image'</span>, content: <span class="hljs-string">'http://localhost:4200/assets/img/universal_logo.png'</span> });
+</code></pre>
+<p class="has-line-data" data-line-start="36" data-line-end="38">If we run the site in SSR mode (npm run serve:ssr) and inspect the page with Chrome's Devtools we will see the following:</p>
+<img class="mt-5 mb-5" src="./../../../assets/images/blog/5/SEO-meta-title.png">
+<p class="has-line-data" data-line-start="39" data-line-end="40">As we can see the meta tags and title have been set correctly.</p>
+<p class="has-line-data" data-line-start="41" data-line-end="42">Here comes our problem and it is that the Crawlers do not enter the page as if they were doing a Devtools inspect but they enter as if we were right-clicking and view-source. Where we will NOT see the tags added.</p>
+<p class="has-line-data" data-line-start="43" data-line-end="44">This is because both Title and Meta work only at the client level, which leads us to the following question: How do we set the Meta from SSR to be accessed from the Crawlers? We will solve it in the next section.</p>
+<h2 class="code-line" data-line-start=45 data-line-end=46 ><a id="SEO_desde_SSR_45"></a>SEO from SSR</h2>
+<p class="has-line-data" data-line-start="47" data-line-end="48">At the moment there is no way assigned by the Angular team to do this. So we will do it in an unconventional way.</p>
+<p class="has-line-data" data-line-start="49" data-line-end="50">We will go to Index.html and inside the head we will add the tags as follows:</p>
+<pre><code class="has-line-data" data-line-start="52" data-line-end="59" class="language-sh">       &lt;title&gt;<span class="hljs-variable">$TITLE</span>&lt;/title&gt;
+       &lt;meta name=<span class="hljs-string">"description"</span> content=<span class="hljs-string">"<span class="hljs-variable">$DESCRIPTION</span>"</span> /&gt;
+       &lt;meta property=<span class="hljs-string">"og:title"</span> content=<span class="hljs-string">"<span class="hljs-variable">$OG_TITLE</span>"</span> /&gt;
+       &lt;meta property=<span class="hljs-string">"og:description"</span> content=<span class="hljs-string">"<span class="hljs-variable">$OG_DESCRIPTION</span>"</span> /&gt;
+       &lt;meta property=<span class="hljs-string">"og:url"</span> content=<span class="hljs-string">"<span class="hljs-variable">$OG_URL</span>"</span> /&gt;
+       &lt;meta property=<span class="hljs-string">"og:image"</span> content=<span class="hljs-string">"<span class="hljs-variable">$OG_IMAGE</span>"</span> /&gt;
+</code></pre>
+<p class="has-line-data" data-line-start="60" data-line-end="61">You may wonder why the content attributes have those reference "variables" and the answer is that SSR accesses the HTML as a big string, so we must replace those variables with the content to be assigned.</p>
+<p class="has-line-data" data-line-start="62" data-line-end="63">We will add the following function to the SSR:</p>
+<pre><code class="has-line-data" data-line-start="65" data-line-end="82" class="language-sh"><span class="hljs-keyword">function</span> <span class="hljs-built_in">set</span>MetaData(
+ html: string,
+ title: string,
+ description: string,
+ url: string,
+ imageUrl: string
+): string {
+ html = html.replace(/\<span class="hljs-variable">$TITLE</span>/g, title);
+ html = html.replace(/\<span class="hljs-variable">$OG_TITLE</span>/g, title);
+ html = html.replace(/\<span class="hljs-variable">$DESCRIPTION</span>/g, description);
+ html = html.replace(/\<span class="hljs-variable">$OG_DESCRIPTION</span>/g, description);
+ html = html.replace(/\<span class="hljs-variable">$OG_URL</span>/g, url);
+ html = html.replace(/\<span class="hljs-variable">$OG_IMAGE</span>/g, imageUrl);
+ <span class="hljs-built_in">return</span> html;
+}
+
+</code></pre>
+<p class="has-line-data" data-line-start="83" data-line-end="84">Basically it receives the meta and title parameters and replaces them in the Html to be rendered.</p>
+<p class="has-line-data" data-line-start="85" data-line-end="86">To use the method we will replace the server.get of the Server.ts file with the following:</p>
+<pre><code class="has-line-data" data-line-start="89" data-line-end="105" class="language-sh"> server.get(<span class="hljs-string">'*'</span>, cacheMiddleware(<span class="hljs-number">300</span>), (req, res) =&gt; {
+   res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] },
+     (err: any, html: any) =&gt; {
+       <span class="hljs-keyword">if</span> (err) {
+           <span class="hljs-built_in">return</span> console.log(err);
+       }
+ 
+       <span class="hljs-keyword">if</span> (html) {
+         const baseUrl = req.protocol + <span class="hljs-string">'://'</span> + req.get(<span class="hljs-string">'host'</span>);
+         const fullUrl = baseUrl + req.originalUrl;
+         html = <span class="hljs-built_in">set</span>MetaData(html, <span class="hljs-string">'Angular Description'</span>, <span class="hljs-string">'Angular Description'</span>, fullUrl, <span class="hljs-string">'http://localhost:4200/assets/img/universal_logo.png'</span>);
+         res.send(html);
+       }
+   });
+ });
+</code></pre>
+<p class="has-line-data" data-line-start="106" data-line-end="107">Basically we use the callback inside the res.render method to do something before returning the rendered page to the client. In the code we see the constant fullUrl that contains the way in which the current url is obtained and on the other hand the method setMetaData is consumed to assign the values that we need.</p>
+<p class="has-line-data" data-line-start="108" data-line-end="109">Now let's run the app again using npm run serve:ssr.</p>
+<p class="has-line-data" data-line-start="110" data-line-end="111">Now we will have the metatags set from SSR so they will be accessible by search engine and social network crawlers.</p>
+<h2 class="code-line" data-line-start=112 data-line-end=113 ><a id="Conclusin_112"></a>Conclusion</h2>
+<p class="has-line-data" data-line-start="114" data-line-end="115">With this we finish this small tutorial of Angular Universal of 5 articles. I hope it has been helpful.</p>
+<p class="has-line-data" data-line-start="120" data-line-end="121">And don't forget if you like or find this tutorial useful, leave me a comment, a recommendation or a message on Linkedin. It is always rewarding to have feedback on what you do.</p>
+<p class="has-line-data" data-line-start="120" data-line-end="121">See you in the next article!</p>
+</body></html>
