@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Article } from '../models/article.model';
-import { filter, map, skip, take, takeLast } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { forkJoin } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
@@ -39,8 +39,11 @@ export class PagesService {
     let end: number | undefined;
     if (pageSize > 0)
       end = offset + pageSize;
+    const tomorrow = new Date();
+    tomorrow.setHours(24,0,0,0);
+    console.log('tomorrow:', tomorrow);
     return this.http.get<Article[]>('assets/articles/articles.json').pipe(
-        map(res => res.filter(x => x.active)
+        map(res => res.filter(x => x.active && new Date(x.date) < tomorrow)
           .sort((a, b) => {
             return a.date < b.date ? 1 : -1;
           })
