@@ -72,10 +72,10 @@ export class FeaturesComponent implements OnInit {
 
 
   getDisplay(tec: string){
-      //TODO: blog: 007 (Low): "Read More" de cada tecnologia se muestra si hay articulos de esa tecnologia.
+      //TODO: blog: 007 (Medium): "Read More" de cada tecnologia se muestra si hay articulos de esa tecnologia.
     return false;
   }
 
-  //TODO: blog: 008 (Medium): Crear pagina de Cheat Sheet. Similar a Blog pero en vez de cards, con los cheat sheet.
+  //TODO: blog: 008 (Low): Crear pagina de Cheat Sheet. Similar a Blog pero en vez de cards, con los cheat sheet.
 
 }

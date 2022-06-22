@@ -1,41 +1,41 @@
 [{
     "id": "1",
     "date":"2022-06-01T08:00:00",
-    "title": "Server Side Rendering (SSR) - Primeros Pasos (I)",
-    "subtitle": "Angular Universal ",
+    "title": "blog.1.title",
+    "subtitle": "blog.1.subtitle",
     "author": "Alejandro Arribillaga",
     "categories": ["angular"],
     "post": "1.md.html",
     "image": "./../../../assets/images/universal_logo.png",
     "active": true,
     "cheatsheets": [{
-        "title": "Cheatsheet",
-        "colums":["Command", "Descripcion"],
+        "title": "blog.1.cheatsheet.title",
+        "colums":["blog.1.cheatsheet.headers.1.text", "blog.1.cheatsheet.headers.2.text"],
         "list": [{
             "title": "ng new [nombre del proyecto]",
-            "desc": "Iniciar proyecto de Angular"
+            "desc": "blog.1.cheatsheet.1.col.2.text"
         }, {
             "title": "ng serve [nombre del proyecto]",
-            "desc": "Servir la app de Angular"
+            "desc": "blog.1.cheatsheet.2.col.2.text"
         }, {
             "title": "curl localhost:port",
-            "desc": "Muestra lo que verá el motor al visitar nuestra página"
+            "desc": "blog.1.cheatsheet.3.col.2.text"
         }, {
             "title": "ng add @nguniversal/express-engine",
-            "desc": "Instalación de packete Angular Universal"
+            "desc": "blog.1.cheatsheet.4.col.2.text"
         }, {
             "title": "npm run build:ssr",
-            "desc": "Build en SSR"
+            "desc": "blog.1.cheatsheet.5.col.2.text"
         }, {
             "title": "npm run serve:ssr",
-            "desc": "Servir la app de Angular en SSR"
+            "desc": "blog.1.cheatsheet.6.col.2.text"
         }]
     }]
 }, {
     "id": "2",
     "date":"2022-06-08T08:00:00",
-    "title": "Server Side Rendering (SSR) - Mejorando el Rendimiento (II)",
-    "subtitle": "Angular Universal",
+    "title": "blog.2.title",
+    "subtitle": "blog.2.subtitle",
     "author": "Alejandro Arribillaga",
     "categories": ["angular"],
     "post": "2.md.html",
@@ -45,70 +45,70 @@
 }, {
     "id": "3",
     "date":"2022-06-15T08:00:00",
-    "title": "Server Side Rendering (SSR) - Lazy Loading (III)",
-    "subtitle": "Angular Universal",
+    "title": "blog.3.title",
+    "subtitle": "blog.3.subtitle",
     "author": "Alejandro Arribillaga",
     "categories": ["angular"],
     "post": "3.md.html",
     "image": "./../../../assets/images/universal_logo.png",
     "active": true,
     "cheatsheets": [{
-        "title": "Cheatsheet",
-        "colums":["Command", "Descripcion"],
+        "title": "blog.3.cheatsheet.title",
+        "colums":["blog.3.cheatsheet.headers.1.text", "blog.3.cheatsheet.headers.2.text"],
         "list": [{
             "title": "ng g module pages/[nombre_pagina] –routing",
-            "desc": "Crea un modulo por pagina más otro para routing"
+            "desc": "blog.3.cheatsheet.1.col.2.text"
         }, {
             "title": "ng g c pages/[nombre_pagina]",
-            "desc": "Crea un nuevo componente o página"
+            "desc": "blog.3.cheatsheet.2.col.2.text"
         }, {
             "title": "{ path: 'home', component: HomeComponent },",
-            "desc": "Definicion de Ruta sin Lazy Loading"
+            "desc": "blog.3.cheatsheet.3.col.2.text"
         }, {
             "title": "loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule)4",
-            "desc": "Reemplaza en Lazy Loading al 'componente'"
+            "desc": "blog.3.cheatsheet.4.col.2.text"
         }]
     }]
 }, {
     "id": "4",
     "date":"2022-06-22T08:00:00",
-    "title": "Server Side Rendering (SSR) - Prerendering and SS and Browser Detection (IV)",
-    "subtitle": "Angular Universal",
+    "title": "blog.4.title",
+    "subtitle": "blog.4.subtitle",
     "author": "Alejandro Arribillaga",
     "categories": ["angular"],
     "post": "4.md.html",
     "image": "./../../../assets/images/universal_logo.png",
     "active": true,
     "cheatsheets": [{
-        "title": "Cheatsheet",
-        "colums":["Command", "Descripcion"],
+        "title": "blog.4.cheatsheet.title",
+        "colums":["blog.4.cheatsheet.headers.1.text", "blog.4.cheatsheet.headers.2.text"],
         "list": [{
             "title": "\"prerender\": \"ng run testUniversal:prerender\"",
-            "desc": "Script de ejecución del Prerendering en SSR"
+            "desc": "blog.4.cheatsheet.1.col.2.text"
         }, {
             "title": "@Inject(PLATFORM_ID) platformId: Object",
-            "desc": "Inyección de Platform"
+            "desc": "blog.4.cheatsheet.2.col.2.text"
         }, {
             "title": "isPlatformServer(platformId)",
-            "desc": "Determina si el platform es el Servidor Express"
+            "desc": "blog.4.cheatsheet.3.col.2.text"
         }, {
             "title": "isPlatformBrowser(platformId)",
-            "desc": "Determina si el platform es el Browser (Cliente)"
+            "desc": "blog.4.cheatsheet.4.col.2.text"
         }]
     }]
 }, {
     "id": "5",
     "date":"2022-06-29T08:00:00",
-    "title": "Server Side Rendering (SSR) - Trabajando con SEO tags (V)",
-    "subtitle": "Angular Universal",
+    "title": "blog.5.title",
+    "subtitle": "blog.5.subtitle",
     "author": "Alejandro Arribillaga",
     "categories": ["angular"],
     "post": "5.md.html",
     "image": "./../../../assets/images/universal_logo.png",
     "active": true,
     "cheatsheets": [{
-        "title": "Cheatsheet",
-        "colums":["Command", "Descripcion"],
+        "title": "blog.5.cheatsheet.title",
+        "colums":["blog.5.cheatsheet.headers.1.text", "blog.5.cheatsheet.headers.2.text"],
         "list": [{
             "title": "Inject SEO title",
             "desc": "private title: Title"

@@ -6,9 +6,9 @@
             <img [class]="techClass" [src]="'./../../../assets/images/' + techLogo" [alt]="technology">
             
         </div>
-        <h1 class="display-4 font-weight-bold" [innerText]="article.title"></h1>
-        <p class="font-italic mb-0" [innerText]="article.subtitle"></p>
-        <p *ngIf="article.author" class="font-italic">by
+        <h1 class="display-4 font-weight-bold" [innerText]="article.title | translate"></h1>
+        <p class="font-italic mb-0" [innerText]="article.subtitle | translate"></p>
+        <p *ngIf="article.author" class="font-italic">{{ 'blog.by' | translate}}
             <a fragment="footer">
                 <u [innerText]="article.author" style="font-weight: bold; color: black;"></u>
             </a>

@@ -19,7 +19,7 @@ export class AppComponent{
 
   //TODO: blog-003 (High): Implementar Angular Universal
   //TODO: blog-013 (Low): Agregar Google analytics
-  //TODO: blog-002 (Urgent): Multilenguaje en los articulos y respetar fecha.
+  //TODO: blog-002 (Urgent): respetar fecha - testing general.
   //TODO: blog-004: (High): Agregar dominio
 }
 
