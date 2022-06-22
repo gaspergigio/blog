@@ -19,7 +19,6 @@ export class AppComponent{
 
   //TODO: blog-003 (High): Implementar Angular Universal
   //TODO: blog-013 (Low): Agregar Google analytics
-  //TODO: blog-014 (Urgent): Subir el proyecto test Universal a Github y agregarlo a los articulos.
   //TODO: blog-002 (Urgent): Multilenguaje en los articulos y respetar fecha.
 }
 
