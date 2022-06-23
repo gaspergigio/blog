@@ -1,5 +1,6 @@
 [{
     "id": "1",
+    "slug": "angular-universal-installation",
     "date":"2022-06-01T08:00:00",
     "title": "blog.1.title",
     "subtitle": "blog.1.subtitle",
@@ -33,6 +34,7 @@
     }]
 }, {
     "id": "2",
+    "slug": "angular-universal-performance",
     "date":"2022-06-08T08:00:00",
     "title": "blog.2.title",
     "subtitle": "blog.2.subtitle",
@@ -45,6 +47,7 @@
 }, {
     "id": "3",
     "date":"2022-06-15T08:00:00",
+    "slug": "angular-universal-lazy-loading",
     "title": "blog.3.title",
     "subtitle": "blog.3.subtitle",
     "author": "Alejandro Arribillaga",
@@ -71,6 +74,7 @@
     }]
 }, {
     "id": "4",
+    "slug": "angular-universal-prerendering",
     "date":"2022-06-22T08:00:00",
     "title": "blog.4.title",
     "subtitle": "blog.4.subtitle",
@@ -98,7 +102,8 @@
     }]
 }, {
     "id": "5",
-    "date":"2022-06-29T08:00:00",
+    "slug": "angular-universal-seo-issues",
+    "date":"2022-06-22T08:00:00",
     "title": "blog.5.title",
     "subtitle": "blog.5.subtitle",
     "author": "Alejandro Arribillaga",
@@ -134,6 +139,7 @@
     }]
 }, {
     "id": "6",
+    "slug": "",
     "date":"2021-12-13T08:00:00",
     "title": "Article 2",
     "subtitle": "Using simple jumbotron-style component, create a nice Bootstrap 4 header with a background image.",
@@ -161,6 +167,7 @@
     }]
 }, {
     "id": "7",
+    "slug": "",
     "date":"2021-12-20T08:00:00",
     "title": "Article 3",
     "subtitle": "Using simple jumbotron-style component, create a nice Bootstrap 4 header with a background image.",
@@ -188,6 +195,7 @@
     }]
 }, {
     "id": "8",
+    "slug": "",
     "date":"2021-12-27T08:00:00",
     "title": "Article 4",
     "subtitle": "Using simple jumbotron-style component, create a nice Bootstrap 4 header with a background image.",

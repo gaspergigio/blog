@@ -23,13 +23,13 @@ export class PagesService {
     return lang
   }
 
-  getPostById(id: string){
+  getPostById(slug: string){
     const lang = this.getLang();
     return forkJoin({
       article: this.getPosts(1, 0).pipe(
-        map(res => res.find(x => x.id === id))
+        map(res => res.find(x => x.slug === slug))
       ), 
-      html: this.http.get(`assets/posts/${id}.${lang}.html`, { responseType: 'text' })} 
+      html: this.http.get(`assets/posts/${slug}.${lang}.html`, { responseType: 'text' })} 
     );
   }
 

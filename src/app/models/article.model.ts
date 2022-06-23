@@ -1,6 +1,7 @@
 import { Cheatsheet } from './cheatsheet.model';
 export interface Article {
     id:          string;
+    slug:        string;
     title:       string;
     image:       string;
     subtitle:    string;

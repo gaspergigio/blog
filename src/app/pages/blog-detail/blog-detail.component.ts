@@ -23,8 +23,8 @@ export class BlogDetailComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      const id = params['id'];
-      this.subscription = this.pagesService.getPostById(id).subscribe(({article, html}) => {
+      const slug = params['slug'];
+      this.subscription = this.pagesService.getPostById(slug).subscribe(({article, html}) => {
         if (article)
           this.article = article;
         this.technology = article?.categories[0];

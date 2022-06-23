@@ -17,9 +17,8 @@ export class AppComponent{
     translate.use(lang);
   }
 
-  //TODO: blog-003 (High): Implementar Angular Universal
+  //TODO: blog-003 (High): Implementar Angular Universal - Add Sitemap and Robot.txt
   //TODO: blog-013 (Low): Agregar Google analytics
   //TODO: blog-004: (High): Agregar dominio
-  //TODO: blog-005: (High): Use an slug en dynamic routes
 }
 
