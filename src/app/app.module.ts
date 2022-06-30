@@ -37,7 +37,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 //TODO: DEPLOY STEPS
-//PRODUCTION URL: https://blog-2d3ab.web.app
+//PRODUCTION URL: https://www.alejandro.arribillaga.com/
 /*
 ng build --prod
 firebase login | firebase login --reauth
