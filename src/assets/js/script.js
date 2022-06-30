@@ -3,11 +3,14 @@ function executeFeaturedAnimations(){
     // feather icons
     feather.replace();
 
-    $('#slider-1').slick({
-        infinite: true,
-        prevArrow: $('.prev'),
-        nextArrow: $('.next'),
-    });
+    const slider = $('#slider-1');
+    if (slider){
+        slider.slick({
+            infinite: true,
+            prevArrow: $('.prev'),
+            nextArrow: $('.next'),
+        });
+    }
 
 }
 

@@ -1,9 +1,9 @@
 <section id="features" class="p-10 md-p-l5">
-    <div class="md-w-75pc title">
+    <div class="md-w-75pc title" data-aos="zoom-in-up" data-aos-delay="10">
         <h2 class="white fs-l3 fw-900 lh-1">{{'features.title' | translate}}</h2>
     </div>
    <div *ngIf="isMobile" class="relative bg-indigo-lightest-10 mt-10">
-        <div  id="slider-1">
+        <div  id="slider-1" data-aos="zoom-in-up" data-aos-delay="10">
             <div  class="flex flex-column md-flex-row mx-auto slide-class" *ngFor="let itemCarousel of carouselMobile">
                 <ng-container *ngIf="itemCarousel">
                 
@@ -21,7 +21,7 @@
 
             </div>
         </div>
-        <ul class="absolute list-none w-100pc flex justify-between top-50pc arrows">
+        <ul class="absolute list-none w-100pc flex justify-between top-50pc arrows" data-aos="zoom-in-up" data-aos-delay="10">
             <li><button class="prev ml-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2 focus-indigo-lighter outline-none"><i
                         data-feather="chevron-left"></i></button></li>
             <li><button class="next mr-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2  focus-indigo-lighter outline-none"><i
@@ -29,7 +29,7 @@
         </ul>
    </div>
    <div *ngIf="isTablet" class="relative bg-indigo-lightest-10 mt-10">
-    <div  id="slider-1">
+    <div  id="slider-1" data-aos="zoom-in-up" data-aos-delay="10">
         <div  class="flex flex-column md-flex-row mx-auto slide-class" *ngFor="let itemCarousel of carouselTablet">
             <ng-container *ngIf="itemCarousel">
             
@@ -47,7 +47,7 @@
 
         </div>
     </div>
-    <ul class="absolute list-none w-100pc flex justify-between top-50pc">
+    <ul class="absolute list-none w-100pc flex justify-between top-50pc" data-aos="zoom-in-up" data-aos-delay="10">
         <li><button class="prev ml-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2 focus-indigo-lighter outline-none"><i
                     data-feather="chevron-left"></i></button></li>
         <li><button class="next mr-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2  focus-indigo-lighter outline-none"><i
@@ -55,7 +55,7 @@
     </ul>
 </div>
 <div *ngIf="isDesktop" class="relative bg-indigo-lightest-10 mt-10">
-    <div  id="slider-1">
+    <div  id="slider-1" data-aos="zoom-in-up" data-aos-delay="10">
         <div  class="flex flex-column md-flex-row mx-auto slide-class" *ngFor="let itemCarousel of carouselDesktop">
             <ng-container *ngIf="itemCarousel">
             
@@ -73,7 +73,7 @@
 
         </div>
     </div>
-    <ul class="absolute list-none w-100pc flex justify-between top-50pc">
+    <ul class="absolute list-none w-100pc flex justify-between top-50pc" data-aos="zoom-in-up" data-aos-delay="10">
         <li><button class="prev ml-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2 focus-indigo-lighter outline-none"><i
                     data-feather="chevron-left"></i></button></li>
         <li><button class="next mr-10 br-round border-indigo-lightest indigo-lightest  bg-transparent flex justify-center items-center p-2  focus-indigo-lighter outline-none"><i
