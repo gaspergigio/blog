@@ -39,7 +39,7 @@ const app = initializeApp(firebaseConfig);
 //TODO: DEPLOY STEPS
 //PRODUCTION URL: https://blog-2d3ab.web.app
 /*
-ng build -- prod
+ng build --prod
 firebase login | firebase login --reauth
 firebase init hosting
 dist/blog

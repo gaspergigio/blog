@@ -2,13 +2,13 @@
 .featured-blog{
     padding-left: 10rem;
     padding-right: 10rem;
-    @media (max-width: $breakpoint-mobile) {
-        padding-left: 2rem;
-        padding-right: 2rem;
-    }
     @media (max-width: $breakpoint-tablet) {
         padding-left: 4rem;
         padding-right: 4rem;
+    }
+    @media (max-width: $breakpoint-mobile) {
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
     padding-top: 5rem;
     padding-bottom: 2rem;
