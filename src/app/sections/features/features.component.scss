@@ -1,9 +1,20 @@
+@import "./../../../theme/variables.scss";
+.title {
+    padding-left: 3rem;
+    @media (max-width: $breakpoint-mobile) {
+        padding-left: 0rem;
+    }
+}
 .node-icon {
     height: 35px !important;
 }
 .slide-class {
     padding-left: 4rem;
     padding-right: 4rem;
+    @media (max-width: $breakpoint-mobile) {
+        padding-left: 0rem;
+        padding-right: 0rem;
+    }
 }
 .invert-image{
     -webkit-filter: invert(1);
@@ -12,4 +23,10 @@
 
 .image-space{
     padding: 1rem;
+}
+
+.arrows{
+    @media (max-width: $breakpoint-mobile) {
+        display: none !important;
+    }
 }

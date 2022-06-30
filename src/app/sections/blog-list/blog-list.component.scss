@@ -10,8 +10,11 @@
         }
     }
     @media (max-width: $breakpoint-mobile) {
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding-left: 0rem;
+        padding-right: 0rem;
+        .p-10{
+            padding: 0rem !important;
+        }
     }
     padding-top: 1rem;
     padding-bottom: 2rem;
