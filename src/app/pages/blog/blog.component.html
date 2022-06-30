@@ -2,15 +2,15 @@
 <div id="infinityContent" infiniteScroll [infiniteScrollDistance]="1" (scrolled)="onScroll()" [scrollWindow]="true">
 <section id="search" class="search-header">
     <div class="min-h-10vh flex justify-start items-center">
-        <h2 class="white fs-l3 lh-2 md-lh-1">{{'blog.title' | translate}}</h2>
-        <small>{{'blog.title.my.name' | translate}}</small>
+        <h2 data-aos="zoom-in-up" data-aos-delay="10" class="white fs-l3 lh-2 md-lh-1">{{'blog.title' | translate}}</h2>
+        <small data-aos="zoom-in-up" data-aos-delay="10">{{'blog.title.my.name' | translate}}</small>
     </div>
     <div class="min-h-10vh flex justify-end items-center ">
         <div class="br-8 mt-10 inline-flex">
-            <input type="text" class="input-lg half bw-0 fw-200 bg-indigo-lightest-10 white ph-indigo-lightest focus-white opacity-80 fs-s3 py-5 min-w-25vw br-r-0" [placeholder]="'blog.search.placeholder' | translate">
-            <button class="button-lg bg-indigo-lightest-20 indigo-lightest focus-white fw-300 fs-s3 mr-0 br-l-0"><i class="fa fa-search icon"></i><span class="btn-search">{{'blog.search.btn.label' | translate}}</span></button>
+            <input data-aos="zoom-in-up" data-aos-delay="10" type="text" class="input-lg half bw-0 fw-200 bg-indigo-lightest-10 white ph-indigo-lightest focus-white opacity-80 fs-s3 py-5 min-w-25vw br-r-0" [placeholder]="'blog.search.placeholder' | translate">
+            <button data-aos="zoom-in-up" data-aos-delay="10" class="button-lg bg-indigo-lightest-20 indigo-lightest focus-white fw-300 fs-s3 mr-0 br-l-0"><i class="fa fa-search icon"></i><span class="btn-search">{{'blog.search.btn.label' | translate}}</span></button>
 <!--             <a href="#" class="button-lg bg-indigo white fs-s3 br-4 black fw-600 no-underline ml-5">Technology</a> -->
-            <select class="button-lg bg-indigo white fs-s3 br-4 black fw-600 no-underline ml-5" name="technologies" id="technologies">
+            <select data-aos="zoom-in-up" data-aos-delay="10" class="button-lg bg-indigo white fs-s3 br-4 black fw-600 no-underline ml-5" name="technologies" id="technologies">
                 <option value="volvo">{{'technologies.all' | translate}}</option>
                 <option value="volvo">Angular</option>
                 <option value="saab">React</option>

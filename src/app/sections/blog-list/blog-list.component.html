@@ -2,11 +2,11 @@
     <div class="flex flex-wrap">
         <div class="w-100pc md-w-33pc p-10" *ngFor="let article of articles">
             <a [href]="'blog/' + article.slug" class="block no-underline p-5 br-8 hover-bg-indigo-lightest-10 hover-scale-up-1 ease-300">
-                <img class="w-100pc" [src]="article.image" alt="">
-                <p class="fw-600 white fs-m3 mt-3" [innerText]="article.title | translate">
+                <img data-aos="zoom-in-up" data-aos-delay="10" class="w-100pc" [src]="article.image" alt="">
+                <p data-aos="zoom-in-up" data-aos-delay="10" class="fw-600 white fs-m3 mt-3" [innerText]="article.title | translate">
                 </p>
-                <strong><p class="white" [innerText]="article.subtitle | translate"></p></strong>
-                <div class="indigo fs-s3 italic after-arrow-right my-4" [innerText]="article.date | date:'medium'"></div>
+                <strong><p class="white" data-aos="zoom-in-up" data-aos-delay="10" [innerText]="article.subtitle | translate"></p></strong>
+                <div class="indigo fs-s3 italic after-arrow-right my-4" data-aos="zoom-in-up" data-aos-delay="10" [innerText]="article.date | date:'medium'"></div>
             </a>
         </div>
     </div>

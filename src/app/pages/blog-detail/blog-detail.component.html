@@ -4,21 +4,21 @@
         <div class="flex justify-center items-center bg-indigo-lightest-10 w-l5 h-l5 br-round mb-5">
         
 <!--             <img class="technology img-responsive" src="./../../../assets/images/logo__angular--white.png" alt="Angular"> -->
-            <img [class]="techClass" [src]="'./../../../assets/images/' + techLogo" [alt]="technology">
+            <img [class]="techClass" [src]="'./../../../assets/images/' + techLogo" [alt]="technology" data-aos="zoom-in-up" data-aos-delay="10">
             
         </div>
-        <h1 class="display-4 font-weight-bold" [innerText]="article.title | translate"></h1>
-        <p class="font-italic mb-0" [innerText]="article.subtitle | translate"></p>
-        <p *ngIf="article.author" class="font-italic">{{ 'blog.by' | translate}}
+        <h1 class="display-4 font-weight-bold" [innerText]="article.title | translate" data-aos="zoom-in-up" data-aos-delay="10"></h1>
+        <p class="font-italic mb-0" [innerText]="article.subtitle | translate" data-aos="zoom-in-up" data-aos-delay="10"></p>
+        <p *ngIf="article.author" class="font-italic" data-aos="zoom-in-up" data-aos-delay="10">{{ 'blog.by' | translate}}
             <a fragment="footer">
                 <u [innerText]="article.author" style="font-weight: bold; color: black;"></u>
             </a>
         </p>
-        <img [src]="article.image" class="img-thumbnail thumb" [alt]="article.title">
+        <img [src]="article.image" class="img-thumbnail thumb" [alt]="article.title" data-aos="zoom-in-up" data-aos-delay="10">
     </div>
 </div>
 
-<div class="container article" [innerHtml]="content">
+<div class="container article" [innerHtml]="content" data-aos="zoom-in-up" data-aos-delay="10">
        
 </div>
 <app-cheat-sheet [cheatsheets]="article.cheatsheets"></app-cheat-sheet>  
